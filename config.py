@@ -54,7 +54,7 @@ class Config:
         self.cronosUsername: str = ''
         self.cronosPassword: str = ''
 
-        self.acThreshold: float = 0
+        self.acThreshold: float = 20
 
         # fetch full dry config
         self.load_config_from_file(self.dry_config_file_absolute_path)
@@ -254,8 +254,9 @@ class Config:
         Save current config to file
         :return: None
         """
-        with open(self.config_file_absolute_path, 'w+') as f:
-            json.dump(self.__dict__, f)
+        with open(t_path, 'w+') as f:
+            json_string = json.dumps(self.__dict__)
+            f.write(json_string)
 
     def load_config_from_file(self, file_path: str) -> bool:
         """
