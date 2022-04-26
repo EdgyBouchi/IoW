@@ -254,9 +254,8 @@ class Config:
         Save current config to file
         :return: None
         """
-        with open(t_path, 'w+') as f:
-            json_string = json.dumps(self.__dict__)
-            f.write(json_string)
+        with open(self.config_file_absolute_path, 'w+') as f:
+            json.dump(self.__dict__, f)
 
     def load_config_from_file(self, file_path: str) -> bool:
         """
