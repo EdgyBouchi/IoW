@@ -226,7 +226,7 @@ class EdgiseMQTT(Thread, EdgiseBase):
 
         if 'deviceConfig' in config_dict.keys():
             try:
-                if config_dict['deviceConfig']['pipeline'][0]['name'] == 'TELLY' and \
+                if config_dict['deviceConfig']['pipeline'][0]['name'] == 'GENERIC' and \
                         config_dict['deviceConfig']['pipeline'][0]['type'] == 'CONFIG':
                     self.info(f"Saving new config")
                     # this saves the rest of the config

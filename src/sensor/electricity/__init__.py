@@ -37,8 +37,17 @@ class ACSensor(Process, EdgiseBase):
         #           }
 
     def read_sensor(self):
-        sensor_value = self.adc.read(self._config_dict['pin'])
-        return sensor_value
+        sample_time = 2
+        start_time = time.time()
+        sensor_max = 0
+        self.info("start sampling")
+        while(time.time() - start_time < sample_time):
+            sensor_value = self.adc.read(self._config_dict['pin'])
+            if(sensor_value > sensor_max):
+                sensor_max = sensor_value
+        print("------------------------------------------------------------sensor value {}".format(sensor_max))
+        return sensor_max
+    
 
     def amplitude_current(self, sensor_value):
         return float(sensor_value / 1024 * self.VCC / 800 * 2000000)
@@ -52,8 +61,10 @@ class ACSensor(Process, EdgiseBase):
     def start_washcycle(self, raw_val, threshold):
         if raw_val > threshold:
             self._washcycle_q.put_nowait(True)
-        else:
+        elif raw_val < threshold:
             self._washcycle_q.get_nowait()
+        else:
+            pass
 
     def run(self) -> None:
         self.info("Starting AC sensor")
@@ -67,23 +78,25 @@ class ACSensor(Process, EdgiseBase):
                 raw_val = self.read_sensor()
             finally:
                 self.i2c_lock.release()
-
+            
+            self.info("threshold: {}".format(self._threshold))
             self.start_washcycle(raw_val, self._threshold)
-            self.info("Raw Value: {}".format(raw_val))
-            amplitude_current = self.amplitude_current(raw_val)
-            self.info("A I Value: {}".format(amplitude_current))
-            rms_current = self.RMS_current(amplitude_current)
-            self.info("RMS I Value: {}".format(rms_current))
-            avg_power = self.avg_power_consumption(rms_current)
-            self.info("AVG W Value: {}".format(avg_power))
-
-            data = {'electricitySensorData': {
-                'rawVal': raw_val,
-                'currentAmp': amplitude_current,
-                'rmsCurrent': rms_current,
-                'avgPower': avg_power
-            }}
-            measurement = {'data': data}
             if not self._washcycle_q.empty():
+                
+                self.info("Raw Value: {}".format(raw_val))
+                amplitude_current = self.amplitude_current(raw_val)
+                self.info("A I Value: {}".format(amplitude_current))
+                rms_current = self.RMS_current(amplitude_current)
+                self.info("RMS I Value: {}".format(rms_current))
+                avg_power = self.avg_power_consumption(rms_current)
+                self.info("AVG W Value: {}".format(avg_power))
+
+                data = {'electricitySensorData': {
+                    'rawVal': raw_val,
+                    'currentAmp': amplitude_current,
+                    'rmsCurrent': rms_current,
+                    'avgPower': avg_power
+                }}
+                measurement = {'data': data}
                 self._output_q.put_nowait({'event': json.dumps(measurement)})
-            time.sleep(10)
+            time.sleep(3)
