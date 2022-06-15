@@ -128,6 +128,7 @@ if __name__ == '__main__':
 
     # Get the list of SSID's available
     ssid_list = get_ssid_list()
+    print("SSID List: {}".format(ssid_list) )
     #ssid_list = ["test"]
 
     c = 0
