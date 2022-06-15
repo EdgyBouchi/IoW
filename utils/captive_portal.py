@@ -23,10 +23,10 @@ def get_ssid_list():
     return ssids
 
 
-@app.route("/captive_portal_step_form", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     print(request.method)
-    if request.method == 'GET':
+    if request.method == 'POST':
         # if request.form.get('btn_value') == 'Send':
         # pass
         ssid = request.form['ssid']
@@ -60,10 +60,10 @@ def index():
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return index()
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def catch_all(path):
+#     return index()
 
 
 @app.route('/ison')
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Get the list of SSID's available
     ssid_list = get_ssid_list()
     print("SSID List: {}".format(ssid_list))
-
+    ssid_list = []
     # c = 0
     # while len(ssid_list) < 3 and c < 5:
     #     c += 1
