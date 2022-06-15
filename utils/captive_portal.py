@@ -125,7 +125,6 @@ if __name__ == '__main__':
     # Get the list of SSID's available
     ssid_list = get_ssid_list()
     print("SSID List: {}".format(ssid_list))
-    ssid_list = []
     # c = 0
     # while len(ssid_list) < 3 and c < 5:
     #     c += 1
