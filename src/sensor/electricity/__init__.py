@@ -9,6 +9,8 @@ from grove.adc import ADC
 from config import cfg
 import json
 
+import queue
+
 
 class ACSensor(Process, EdgiseBase):
     def __init__(self, stop_event: Event, logging_q: Queue, washcycle_q: Queue, output_q: Queue,
@@ -63,7 +65,7 @@ class ACSensor(Process, EdgiseBase):
             self._washcycle_q.put_nowait(True)
         elif raw_val < threshold:
             try:
-                self._washcycle_q.get_nowait(True)
+                self._washcycle_q.get_nowait()
             except queue.Empty:
                 pass
 
