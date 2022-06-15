@@ -44,7 +44,7 @@ class ACSensor(Process, EdgiseBase):
         sensor_max = 0
         self.info("start sampling")
         while(time.time() - start_time < sample_time):
-            sensor_value = self.adc.read_raw(self._config_dict['pin'])
+            sensor_value = self.adc.read(self._config_dict['pin'])
             if(sensor_value > sensor_max):
                 sensor_max = sensor_value
         print("------------------------------------------------------------sensor value {}".format(sensor_max))
