@@ -13,22 +13,14 @@ ssid_list = []
 
 
 def get_ssid_list():
-    ssids_list = []
     # Get the list of SSID's available
-
     ssids = subprocess.run(['nmcli', '-f', 'SSID', 'device', 'wifi'], stdout=subprocess.PIPE)
-    print(ssids)
     ssids_str = ssids.stdout.decode('utf-8')
-    print(ssids_str)
-    list_ssids_string = ssids_str.split('\n')
-    ssids = [ssid.strip() for ssid in list_ssids_string]
-    ssids = list(filter(lambda ssid: ssid != '__', set(ssids)))
+    ssids_string_list = ssids_str.split('\n')
+    ssids = set([ssid.strip() for ssid in ssids_string_list])
+    ssids = list(filter(lambda ssid: ssid != '__', ssids))
     print("SSIDS STRIP: {}".format(ssids))
-
-    print(ssids_list)
-    ssids_list.append("SSID not listed")
-
-    return ssids_list
+    return ssids
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -42,9 +34,9 @@ def index():
             ssid = request.form['other_ssid']
             print(f"other SSID selected : {ssid}")
         password = request.form['password']
-        os.system(f"nmcli con delete telly_con")
-        os.system(f"nmcli c add type wifi con-name telly_con ifname wlan0 ssid '{ssid}'")
-        os.system(f"nmcli c modify telly_con wifi-sec.key-mgmt wpa-psk wifi-sec.psk '{password}'")
+        # os.system(f"nmcli con delete telly_con")
+        # os.system(f"nmcli c add type wifi con-name telly_con ifname wlan0 ssid '{ssid}'")
+        # os.system(f"nmcli c modify telly_con wifi-sec.key-mgmt wpa-psk wifi-sec.psk '{password}'")
 
         try:
             output = subprocess.check_output(["nmcli", "con", "up", "telly_con"])
@@ -123,29 +115,27 @@ if __name__ == '__main__':
     selected_ssid = ""
     selected_psk = ""
 
+    hotspot_interface = "wlan0"
+    hotspot_conn_name = "iow-con"
+    hotspot_ssid = "IoW_Device"
+    hotspot_password = "iowiowiow"
+    os.system("nmcli connection down {}".format(hotspot_conn_name))
     time.sleep(0.5)
-
+    os.system("nmcli connection delete {}".format(hotspot_conn_name))
     # Get the list of SSID's available
     ssid_list = get_ssid_list()
     print("SSID List: {}".format(ssid_list))
-    # ssid_list = ["test"]
 
-    c = 0
-    while len(ssid_list) < 3 and c < 5:
-        c += 1
-        print("didn't find any SSID, trying again")
+    # c = 0
+    # while len(ssid_list) < 3 and c < 5:
+    #     c += 1
+    #     print("didn't find any SSID, trying again")
     # os.system("nmcli con down hotspot")
     #  os.system("nmcli con down telly_con")
     #   ssid_list = get_ssid_list()
 
     # print(f"found {len(ssid_list)} SSID's")
-    hotspot_interface = "wlan0"
-    hotspot_conn_name = "iow-con"
-    hotspot_ssid = "IoW_Device"
-    hotspot_password = "iowiowiow"
-    os.system("nmcli con down {}".format(hotspot_conn_name))
-    time.sleep(0.5)
-    os.system("nmcli connection delete {}".format(hotspot_conn_name))
+
     os.system(
         "nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface,
                                                                                                       hotspot_conn_name,
