@@ -119,13 +119,6 @@ if __name__ == '__main__':
     selected_ssid = ""
     selected_psk = ""
 
-    # os.system(f"nmcli con down hotspot")
-    # os.system(f"nmcli con down telly_con")
-
-    time.sleep(0.5)
-
-    # os.system(f"nmcli con delete hotspot")
-
     time.sleep(0.5)
 
     # Get the list of SSID's available
@@ -145,6 +138,9 @@ if __name__ == '__main__':
     hotspot_conn_name = "iow-con"
     hotspot_ssid = "IoW_Device"
     hotspot_password = "iow"
+    os.system("nmcli con down {}".format(hotspot_conn_name))
+    time.sleep(0.5)
+    os.system("nmcli con delete {}".format(hotspot_conn_name))
     os.system("nmcli con add type wifi ifname {} con-name {} autoconnect yes ssid {}".format(hotspot_interface, hotspot_conn_name,hotspot_ssid, hotspot_password))
     os.system("nmcli con modify {} 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared".format(hotspot_conn_name))
     os.system("nmcli con modify {} wifi-sec.key-mgmt wpa-psk".format(hotspot_conn_name))
