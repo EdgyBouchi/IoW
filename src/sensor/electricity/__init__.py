@@ -20,7 +20,7 @@ class ACSensor(Process, EdgiseBase):
         self._washcycle_q: Queue = washcycle_q
         self._output_q: Queue = output_q
         self.RMS_voltage = 230
-        self.VCC = 5
+        self.VCC = 3.3
         self._config_dict = config_dict
         self._name = self._config_dict['name']
         self._threshold = self._config_dict['threshold']
@@ -44,7 +44,7 @@ class ACSensor(Process, EdgiseBase):
         sensor_max = 0
         self.info("start sampling")
         while(time.time() - start_time < sample_time):
-            sensor_value = self.adc.read(self._config_dict['pin'])
+            sensor_value = self.adc.read_raw(self._config_dict['pin'])
             if(sensor_value > sensor_max):
                 sensor_max = sensor_value
         print("------------------------------------------------------------sensor value {}".format(sensor_max))
@@ -52,7 +52,7 @@ class ACSensor(Process, EdgiseBase):
     
 
     def amplitude_current(self, sensor_value):
-        return float(sensor_value / 1024 * self.VCC / 800 * 2000000)
+        return float(sensor_value / 4096 * self.VCC / 800 * 2000000)
 
     def RMS_current(self, amplitude_current):
         return amplitude_current / sqrt(2)

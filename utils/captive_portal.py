@@ -22,8 +22,8 @@ def get_ssid_list():
     print(ssids_str)
     list_ssids_string = ssids_str.split('\n')
     ssids = [ssid.strip() for ssid in list_ssids_string]
+    ssids = list(filter(lambda ssid: ssid != '__', set(ssids)))
     print("SSIDS STRIP: {}".format(ssids))
-
 
     print(ssids_list)
     ssids_list.append("SSID not listed")
@@ -94,7 +94,7 @@ def retry_telly_con():
         time.sleep(0.5)
         os.system('nmcli dev wifi rescan')
         time.sleep(0.5)
-        #output = subprocess.check_output(["nmcli", "con", "up", "telly_con"])
+        # output = subprocess.check_output(["nmcli", "con", "up", "telly_con"])
         print("telly_con worked, quitting captive portal")
 
         func = request.environ.get('werkzeug.server.shutdown')
@@ -127,13 +127,13 @@ if __name__ == '__main__':
 
     # Get the list of SSID's available
     ssid_list = get_ssid_list()
-    print("SSID List: {}".format(ssid_list) )
-    #ssid_list = ["test"]
+    print("SSID List: {}".format(ssid_list))
+    # ssid_list = ["test"]
 
     c = 0
     while len(ssid_list) < 3 and c < 5:
-       c += 1
-       print("didn't find any SSID, trying again")
+        c += 1
+        print("didn't find any SSID, trying again")
     # os.system("nmcli con down hotspot")
     #  os.system("nmcli con down telly_con")
     #   ssid_list = get_ssid_list()
@@ -146,8 +146,13 @@ if __name__ == '__main__':
     os.system("nmcli con down {}".format(hotspot_conn_name))
     time.sleep(0.5)
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
-    os.system("nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface, hotspot_conn_name, hotspot_ssid))
-    os.system("nmcli connection modify {} 802-11-wireless.mode ap 802-11-wireless-security.key-mgmt wpa-psk  ipv4.method shared 802-11-wireless-security.psk {}".format(hotspot_conn_name, hotspot_password))
+    os.system(
+        "nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface,
+                                                                                                      hotspot_conn_name,
+                                                                                                      hotspot_ssid))
+    os.system(
+        "nmcli connection modify {} 802-11-wireless.mode ap 802-11-wireless-security.key-mgmt wpa-psk  ipv4.method shared 802-11-wireless-security.psk {}".format(
+            hotspot_conn_name, hotspot_password))
     os.system("nmcli con up {}".format(hotspot_conn_name))
 
     app.run(host='0.0.0.0', port=8000)
