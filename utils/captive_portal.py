@@ -122,8 +122,8 @@ if __name__ == '__main__':
     time.sleep(0.5)
 
     # Get the list of SSID's available
-    # ssid_list = get_ssid_list()
-    ssid_list = ["test"]
+    ssid_list = get_ssid_list()
+    #ssid_list = ["test"]
 
     c = 0
     while len(ssid_list) < 3 and c < 5:
@@ -143,10 +143,6 @@ if __name__ == '__main__':
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
     os.system("nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface, hotspot_conn_name, hotspot_ssid))
     os.system("nmcli connection modify {} 802-11-wireless.mode ap 802-11-wireless-security.key-mgmt wpa-psk  ipv4.method shared 802-11-wireless-security.psk {}".format(hotspot_conn_name, hotspot_password))
-    #os.system("nmcli connection modify {} wifi-sec.key-mgmt wpa-psk".format(hotspot_conn_name))
-    #os.system("nmcli con modify {} wifi-sec.psk {}".format(hotspot_conn_name, hotspot_password))
     os.system("nmcli con up {}".format(hotspot_conn_name))
-    #os.system("nmcli connection show {}".format(hotspot_conn_name))
 
-    #os.system("nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {}")
     app.run(host='0.0.0.0', port=8000)
