@@ -23,10 +23,10 @@ def get_ssid_list():
     return ssids
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/captive_portal_step_form", methods=['GET', 'POST'])
 def index():
     print(request.method)
-    if request.method == 'POST':
+    if request.method == 'GET':
         # if request.form.get('btn_value') == 'Send':
         # pass
         ssid = request.form['ssid']
@@ -60,10 +60,10 @@ def index():
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# # def catch_all(path):
-# #     return redirect("http://10.42.0.1:5000")
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return redirect("http://10.42.0.1/captive_portal_step_form")
 
 
 @app.route('/ison')
@@ -103,12 +103,12 @@ def retry_telly_con():
     return "success"
 
 
-# @app.route('/quit')
-# def quit_app():
-#     func = request.environ.get('werkzeug.server.shutdown')
-#     if func is None:
-#         raise RuntimeError('Not running with the Werkzeug Server')
-#     func()
+@app.route('/quit')
+def quit_app():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
 
 
 if __name__ == '__main__':
