@@ -62,9 +62,10 @@ class ACSensor(Process, EdgiseBase):
         if raw_val > threshold:
             self._washcycle_q.put_nowait(True)
         elif raw_val < threshold:
-            self._washcycle_q.get_nowait()
-        else:
-            pass
+            try:
+                self._washcycle_q.get_nowait(True)
+            except queue.Empty:
+                pass
 
     def run(self) -> None:
         self.info("Starting AC sensor")
