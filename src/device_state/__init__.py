@@ -44,7 +44,7 @@ class DeviceState(Thread, EdgiseBase):
         platform = os.uname()
         if platform[1] == "raspberrypi":
             try:
-                tmp: str = os.popen("/opt/vc/bin/vcgencmd measure_temp").readline()
+                tmp: str = os.popen("vcgencmd measure_temp").readline()
                 tmp = tmp.split("=")[-1]
                 return float(tmp.split("'")[0])
             except Exception as e:
