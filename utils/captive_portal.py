@@ -7,7 +7,7 @@ import time
 import random
 import getmac
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 ssid_list = []
 
@@ -27,7 +27,7 @@ def get_ssid_list():
     return ssids_list
 
 
-@app.route("/captive_portal_step_form", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     print(request.method)
     if request.method == 'POST':
@@ -64,10 +64,10 @@ def index():
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return redirect("http://10.42.0.1:5000")
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# # def catch_all(path):
+# #     return redirect("http://10.42.0.1:5000")
 
 
 @app.route('/ison')
