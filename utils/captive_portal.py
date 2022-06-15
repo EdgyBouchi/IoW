@@ -15,13 +15,18 @@ ssid_list = []
 def get_ssid_list():
     ssids_list = []
     # Get the list of SSID's available
+
     ssids = subprocess.run(['nmcli', '-f', 'SSID', 'device', 'wifi'], stdout=subprocess.PIPE)
+    print(ssids)
     ssids_str = ssids.stdout.decode('utf-8')
+    print(ssids_str)
     list_ssids_string = ssids_str.split('\n')
+    print(list_ssids_string)
     for ssid in list_ssids_string:
         ssids_list.append(ssid.strip())
 
     ssids_list = ssids_list[1:len(ssids_list) - 2]
+    print(ssids_list)
     ssids_list.append("SSID not listed")
 
     return ssids_list
