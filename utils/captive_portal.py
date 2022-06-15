@@ -23,7 +23,7 @@ def get_ssid_list():
     return ssids
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/captive_portal_step_form", methods=['GET', 'POST'])
 def index():
     print(request.method)
     if request.method == 'POST':
@@ -60,10 +60,10 @@ def index():
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     return index()
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    returnredirect("http://10.42.0.1:8000/captive_portal_step_form")
 
 
 @app.route('/ison')
