@@ -63,7 +63,7 @@ def index():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    return redirect("http://10.42.0.1/captive_portal_step_form")
+    return index
 
 
 @app.route('/ison')
