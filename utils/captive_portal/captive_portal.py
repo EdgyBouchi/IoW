@@ -141,9 +141,15 @@ if __name__ == '__main__':
     #   ssid_list = get_ssid_list()
 
     # print(f"found {len(ssid_list)} SSID's")
-
-    # os.system(f"nmcli con add type wifi ifname wlan0 con-name hotspot autoconnect yes ssid 'Telly Hotspot {getmac.get_mac_address('wlan0')}'")
-    # os.system(f"nmcli con modify hotspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared")
-    # os.system(f"nmcli con up hotspot")
+    hotspot_interface = "wlan0"
+    hotspot_conn_name = "iow-con"
+    hotspot_ssid = "IoW_Device"
+    hotspot_password = "iow"
+    os.system("nmcli con add type wifi ifname {} con-name {} autoconnect yes ssid {}".format(hotspot_interface, hotspot_conn_name,hotspot_ssid, hotspot_password))
+    os.system("nmcli con modify {} 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared".format(hotspot_conn_name))
+    os.system("nmcli con modify {} wifi-sec.key-mgmt wpa-psk".format(hotspot_conn_name))
+    os.system("nmcli con modify {} wifi-sec.psk {}".format(hotspot_conn_name, hotspot_password))
+    os.system("nmcli con up hotspot")
+    os.system("nmcli connection show {}".format(hotspot_conn_name))
 
     app.run(host='0.0.0.0', port=8000)
