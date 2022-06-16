@@ -1,11 +1,9 @@
 import json
 
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request,  redirect, render_template
 import os
 import subprocess
 import time
-import random
-import getmac
 
 app = Flask(__name__, template_folder='templates')
 
@@ -34,73 +32,26 @@ def index():
             ssid = request.form['other_ssid']
             print(f"other SSID selected : {ssid}")
         password = request.form['password']
-        # os.system(f"nmcli con delete telly_con")
-        # os.system(f"nmcli c add type wifi con-name telly_con ifname wlan0 ssid '{ssid}'")
-        # os.system(f"nmcli c modify telly_con wifi-sec.key-mgmt wpa-psk wifi-sec.psk '{password}'")
 
-        try:
-            output = subprocess.check_output(["nmcli", "con", "up", "telly_con"])
-            print("SUCCESS SUCCESS SUCCESS")
+        with open('user_register.json', 'w') as f:
+            json.dump(request.form, f)
 
-            with open('user_register.json', 'w') as f:
-                json.dump(request.form, f)
-            return render_template('user_registration_saved.html')
+        os.system("nmcli connection down {}".format(hotspot_conn_name))
+        time.sleep(0.5)
+        os.system("nmcli connection delete {}".format(hotspot_conn_name))
+        #add check if possible to connect to network and if internet access is possible
+        os.system("nmcli dev wifi connect network-ssid {} password {}".format(
+                ssid,
+                password))
+        return render_template('user_registration_saved.html')
 
-            func = request.environ.get('werkzeug.server.shutdown')
-            if func is None:
-                raise RuntimeError('Not running with the Werkzeug Server')
-            func()
-
-            # quit_app()
-
-        except Exception as e:
-            print(f"FAILED FAILED FAILED ...  Exception : {e}")
-            os.system(f"nmcli con up hotspot")
-
-    return render_template("captive_portal_step_form.html", data=ssid_list)
+    return render_template("captive_portal_step_form.html", data=ssid_list )
 
 
 # @app.route('/', defaults={'path': ''})
 # @app.route('/<path:path>')
 # def catch_all(path):
 #     return redirect("http://10.42.0.1:8000/captive_portal_step_form")
-
-
-@app.route('/ison')
-def ison():
-    return "hello"
-
-
-# @app.route('save_json', methods='POST')
-# def save_json():
-#     # if request.method == 'POST':
-#     with open('user_register.json', 'w') as f:
-#         json.dump(request.form, f)
-#     return render_template('your_template.html')
-
-
-@app.route('/retry_telly_con')
-def retry_telly_con():
-    try:
-        os.system('nmcli con down hotspot')
-        time.sleep(0.5)
-        os.system('nmcli dev wifi rescan')
-        time.sleep(0.5)
-        # output = subprocess.check_output(["nmcli", "con", "up", "telly_con"])
-        print("telly_con worked, quitting captive portal")
-
-        func = request.environ.get('werkzeug.server.shutdown')
-        if func is None:
-            raise RuntimeError('Not running with the Werkzeug Server')
-        func()
-
-        # quit_app()
-
-    except Exception as e:
-        print(f"telly_con failed with : {e}")
-        os.system('nmcli con up hotspot')
-
-    return "success"
 
 
 @app.route('/quit')
@@ -123,17 +74,10 @@ if __name__ == '__main__':
     time.sleep(0.5)
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
     # Get the list of SSID's available
-    ssid_list = get_ssid_list()
+    # the test ssid list is to run on mac OS
+    # ssid_list = get_ssid_list()
+    ssid_list = ["test"]
     print("SSID List: {}".format(ssid_list))
-    # c = 0
-    # while len(ssid_list) < 3 and c < 5:
-    #     c += 1
-    #     print("didn't find any SSID, trying again")
-    # os.system("nmcli con down hotspot")
-    #  os.system("nmcli con down telly_con")
-    #   ssid_list = get_ssid_list()
-
-    # print(f"found {len(ssid_list)} SSID's")
 
     os.system(
         "nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface,
