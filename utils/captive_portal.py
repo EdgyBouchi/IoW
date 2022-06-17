@@ -23,9 +23,7 @@ def get_ssid_list():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    print("testing sever")
     print(request.method)
-    print("floemp")
     if request.method == 'POST':
         # if request.form.get('btn_value') == 'Send':
         # pass
@@ -45,7 +43,7 @@ def index():
         os.system("nmcli dev wifi connect network-ssid {} password {}".format(
                 ssid,
                 password))
-        return render_template('user_registration_saved.html')
+        return render_template('user_registration_finished.html')
 
     return render_template("captive_portal_step_form.html", data=ssid_list )
 
