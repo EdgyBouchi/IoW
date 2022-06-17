@@ -44,6 +44,7 @@ def index():
         time.sleep(5)
         output = subprocess.check_output(f"sudo nmcli dev wifi connect {ssid} password {password}", shell=True)
         print(output)
+        print(str(output))
         if "successfully" in output:
         #os.system("sudo nmcli dev wifi connect {} password {}".format(ssid,password))
             print('rebooting ...')
