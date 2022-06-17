@@ -63,6 +63,7 @@ def quit_app():
 
 
 if __name__ == '__main__':
+    time.sleep(20)
     selected_ssid = ""
     selected_psk = ""
 
