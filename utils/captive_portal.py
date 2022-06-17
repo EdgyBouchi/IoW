@@ -9,6 +9,8 @@ app = Flask(__name__, template_folder='templates')
 
 ssid_list = []
 
+def create_hotspot():
+
 
 def get_ssid_list():
     # Get the list of SSID's available
@@ -40,7 +42,7 @@ def index():
         time.sleep(5)
 
         try:
-            subprocess.check_output(f"sudo nmcli dev wifi connect {ssid} password {password}", stderr-subprocess.PIPE)
+            subprocess.check_output(f"sudo nmcli dev wifi connect iphone password meloentje", stderr-subprocess.PIPE)
             print('rebooting ...')
             os.system("mv /etc/rc.local /etc/captive_portal")
             os.system("mv /etc/main_iow_script /etc/rc.local")
