@@ -40,7 +40,7 @@ def index():
         time.sleep(10)
         
         try:
-            subprocess.check_output("sudo nmcli dev wifi connect iphone password meloentje")
+            os.system("sudo nmcli dev wifi connect iphone password meloentje")
             print('rebooting ...')
             #os.system("mv /etc/rc.local /etc/captive_portal")
             #os.system("mv /etc/main_iow_script /etc/rc.local")
@@ -49,7 +49,7 @@ def index():
             #sleep necessairy for internet to be available
             return render_template('user_registration_finished.html')
             
-        except subprocess.CalledProcessError as e:
+        except Error as e:
             print(e.output)
             print("connection unsuccessfull")
             os.system("sudo nmcli connection up iow-con")
