@@ -37,11 +37,12 @@ def index():
             json.dump(request.form, f)
 
         os.system("sudo nmcli connection down {}".format(hotspot_conn_name))
-        time.sleep(5)
+        time.sleep(0.5)
         os.system("sudo nmcli connection delete {}".format(hotspot_conn_name))
         #add check if possible to connect to network and if internet access is possible
+        #sleep necessairy for internet to be available
         time.sleep(5)
-        os.system(f"sudo nmcli dev wifi connect iphone password meloentje")
+        os.system("sudo nmcli dev wifi connect {} password {}".format(ssid,password))
         return render_template('user_registration_finished.html')
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
