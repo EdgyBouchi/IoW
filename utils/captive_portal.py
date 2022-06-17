@@ -40,10 +40,12 @@ def index():
         time.sleep(0.5)
         os.system("nmcli connection delete {}".format(hotspot_conn_name))
         #add check if possible to connect to network and if internet access is possible
-        os.system("nmcli dev wifi connect network-ssid {} password {}".format(ssid,password))
+        os.system("nmcli dev wifi connect {} password {}".format(
+                ssid,
+                password))
         return render_template('user_registration_finished.html')
 
-    return render_template("captive_portal_step_form.html")
+    return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
 # @app.route('/', defaults={'path': ''})
