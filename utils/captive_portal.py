@@ -41,7 +41,7 @@ def index():
         os.system("sudo nmcli connection delete {}".format(hotspot_conn_name))
         #add check if possible to connect to network and if internet access is possible
         time.sleep(0.5)
-        os.system(f"sudo nmcli dev wifi connect {ssid} password {password}")
+        os.system(f"sudo nmcli dev wifi connect iphone password meloentje")
         return render_template('user_registration_finished.html')
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
