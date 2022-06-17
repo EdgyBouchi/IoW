@@ -1,0 +1,1065 @@
+[
+    {
+        "id": "cc69efdc695df521",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c02b42766227e52b",
+        "type": "ui_tab",
+        "name": "IoW",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "09848e80eed7b08c",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "2437cf7e5abcd543",
+        "type": "ui_group",
+        "name": "General information",
+        "tab": "c02b42766227e52b",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b692caf67a6ded9f",
+        "type": "ui_spacer",
+        "z": "cc69efdc695df521",
+        "name": "spacer",
+        "group": "2437cf7e5abcd543",
+        "order": 3,
+        "width": "12",
+        "height": "1"
+    },
+    {
+        "id": "9329519b60403d56",
+        "type": "inject",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "60",
+        "topic": "",
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "194cc13c24b0da95"
+            ]
+        ]
+    },
+    {
+        "id": "06a33b4dd5de25e5",
+        "type": "http request",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "https://iow.edgise.com/api/ex/v1/sessions",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "9406852183cb3013"
+            ]
+        ]
+    },
+    {
+        "id": "380d1aa2b88554ba",
+        "type": "debug",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9406852183cb3013",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Extract Data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.content[0]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "2f35ac7726a77a59"
+            ]
+        ]
+    },
+    {
+        "id": "c8cdd39996f02a29",
+        "type": "switch",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "measurements",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "machine",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "duration",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "deviceId",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "startTime",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "endTime",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 790,
+        "y": 140,
+        "wires": [
+            [
+                "7be2dfad0e1f4cb4"
+            ],
+            [
+                "380d1aa2b88554ba"
+            ],
+            [
+                "7d1d086c46cd33ed"
+            ],
+            [
+                "93b5f161592073b1"
+            ],
+            [
+                "dc576b6a26faf625"
+            ],
+            [
+                "14b3e92069e9bebb"
+            ]
+        ]
+    },
+    {
+        "id": "2f35ac7726a77a59",
+        "type": "split",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "topic",
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "c8cdd39996f02a29"
+            ]
+        ]
+    },
+    {
+        "id": "93b5f161592073b1",
+        "type": "ui_text_input",
+        "z": "cc69efdc695df521",
+        "name": "Device",
+        "label": "Device ID",
+        "tooltip": "",
+        "group": "2437cf7e5abcd543",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1210,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7d1d086c46cd33ed",
+        "type": "ui_text_input",
+        "z": "cc69efdc695df521",
+        "name": "Duration",
+        "label": "Duration",
+        "tooltip": "",
+        "group": "2437cf7e5abcd543",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1220,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14b3e92069e9bebb",
+        "type": "function",
+        "z": "cc69efdc695df521",
+        "name": "Unixtime to Date",
+        "func": "var date = new Date(msg.payload * 1000);\nmsg.payload = date;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 320,
+        "wires": [
+            [
+                "65230650b5524535"
+            ]
+        ]
+    },
+    {
+        "id": "dc576b6a26faf625",
+        "type": "function",
+        "z": "cc69efdc695df521",
+        "name": "Unixtime to Date",
+        "func": "var date = new Date(msg.payload * 1000);\nmsg.payload = date;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 280,
+        "wires": [
+            [
+                "ffc1c0325b39c7a8"
+            ]
+        ]
+    },
+    {
+        "id": "ffc1c0325b39c7a8",
+        "type": "ui_text_input",
+        "z": "cc69efdc695df521",
+        "name": "Start Time",
+        "label": "Start Time",
+        "tooltip": "",
+        "group": "2437cf7e5abcd543",
+        "order": 6,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1230,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "65230650b5524535",
+        "type": "ui_text_input",
+        "z": "cc69efdc695df521",
+        "name": "End Time",
+        "label": "End Time",
+        "tooltip": "",
+        "group": "2437cf7e5abcd543",
+        "order": 7,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1220,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7be2dfad0e1f4cb4",
+        "type": "split",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1190,
+        "y": 80,
+        "wires": [
+            [
+                "3db7201b898744ea"
+            ]
+        ]
+    },
+    {
+        "id": "67c81862bec1f4f8",
+        "type": "ui_chart",
+        "z": "cc69efdc695df521",
+        "name": "Power usage",
+        "group": "2437cf7e5abcd543",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "label": "Power usage",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2510,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3db7201b898744ea",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Extract Data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "timestamp",
+                "pt": "msg",
+                "to": "msg.payload.timestamp",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.payload.sensorData.type",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.sensorData",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "payload.type",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1410,
+        "y": 80,
+        "wires": [
+            [
+                "e0c132095c1aab71"
+            ]
+        ]
+    },
+    {
+        "id": "e0c132095c1aab71",
+        "type": "function",
+        "z": "cc69efdc695df521",
+        "name": "Unixtime to Date",
+        "func": "var date = new Date(msg.timestamp * 1000);\nmsg.timestamp = date;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1640,
+        "y": 80,
+        "wires": [
+            [
+                "b87678c49f414d19"
+            ]
+        ]
+    },
+    {
+        "id": "b87678c49f414d19",
+        "type": "split",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "subtopic",
+        "x": 1830,
+        "y": 80,
+        "wires": [
+            [
+                "a7a2e5c07fa16021"
+            ]
+        ]
+    },
+    {
+        "id": "a7a2e5c07fa16021",
+        "type": "switch",
+        "z": "cc69efdc695df521",
+        "name": "Split sensors",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "electricitySensorData",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "environmentSensorData",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "vibrationSensorData",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "waterflowSensorData",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 2030,
+        "y": 80,
+        "wires": [
+            [
+                "4d9d2db9f32a9474"
+            ],
+            [
+                "682e761fe7ae3e44"
+            ],
+            [
+                "f0ad8c695bd3256b"
+            ],
+            [
+                "bed59d3b6f6989be"
+            ]
+        ]
+    },
+    {
+        "id": "4d9d2db9f32a9474",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Subtopic to topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.subtopic",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2290,
+        "y": 60,
+        "wires": [
+            [
+                "67c81862bec1f4f8"
+            ]
+        ]
+    },
+    {
+        "id": "ddbb3015d47ae793",
+        "type": "ui_chart",
+        "z": "cc69efdc695df521",
+        "name": "Environment",
+        "group": "2437cf7e5abcd543",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "label": "Environment",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2510,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "682e761fe7ae3e44",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Subtopic to topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.subtopic",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2290,
+        "y": 100,
+        "wires": [
+            [
+                "ddbb3015d47ae793"
+            ]
+        ]
+    },
+    {
+        "id": "665812f457b1092d",
+        "type": "ui_chart",
+        "z": "cc69efdc695df521",
+        "name": "Vibration",
+        "group": "2437cf7e5abcd543",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "label": "Vibration",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2500,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0ad8c695bd3256b",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Subtopic to topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.subtopic",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2290,
+        "y": 140,
+        "wires": [
+            [
+                "665812f457b1092d"
+            ]
+        ]
+    },
+    {
+        "id": "703618ed2d444580",
+        "type": "ui_chart",
+        "z": "cc69efdc695df521",
+        "name": "Water flow",
+        "group": "2437cf7e5abcd543",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "label": "Water flow",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2510,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bed59d3b6f6989be",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Subtopic to topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.subtopic",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2290,
+        "y": 180,
+        "wires": [
+            [
+                "703618ed2d444580"
+            ]
+        ]
+    },
+    {
+        "id": "b9ac990b94d94cac",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Set Time min",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ui_control.options.scales.xAxes.time.min",
+                "pt": "msg",
+                "to": "msg.payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 240,
+        "wires": [
+            [
+                "67c81862bec1f4f8",
+                "ddbb3015d47ae793",
+                "665812f457b1092d",
+                "703618ed2d444580"
+            ]
+        ]
+    },
+    {
+        "id": "56eec761ad89d68b",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Set Time max",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ui_control.options.scales.xAxes.time.max",
+                "pt": "msg",
+                "to": "msg.payload",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 280,
+        "wires": [
+            [
+                "67c81862bec1f4f8",
+                "ddbb3015d47ae793",
+                "665812f457b1092d",
+                "703618ed2d444580"
+            ]
+        ]
+    },
+    {
+        "id": "194cc13c24b0da95",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"size\":1}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\"x-api-key\":\"e13556f1-3e9f-49d4-8323-9144c2fb7159\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "06a33b4dd5de25e5"
+            ]
+        ]
+    },
+    {
+        "id": "ec7ba6330153fc38",
+        "type": "ui_button",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "group": "2437cf7e5abcd543",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "Start",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "194cc13c24b0da95"
+            ]
+        ]
+    },
+    {
+        "id": "aa882be3a81b5a06",
+        "type": "ui_button",
+        "z": "cc69efdc695df521",
+        "name": "",
+        "group": "2437cf7e5abcd543",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "Clear",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 2050,
+        "y": 360,
+        "wires": [
+            [
+                "e7b64335049f1a58"
+            ]
+        ]
+    },
+    {
+        "id": "e7b64335049f1a58",
+        "type": "change",
+        "z": "cc69efdc695df521",
+        "name": "Empty",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2250,
+        "y": 360,
+        "wires": [
+            [
+                "703618ed2d444580",
+                "665812f457b1092d",
+                "ddbb3015d47ae793",
+                "67c81862bec1f4f8"
+            ]
+        ]
+    }
+]
