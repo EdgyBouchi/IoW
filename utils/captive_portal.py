@@ -52,6 +52,7 @@ def index():
         except:
             print("connection unsuccessfull")
             os.system("sudo nmcli connection up {}".format(hotspot_conn_name))
+            time.sleep(5)
             return render_template("captive_portal_step_form.html", data=ssid_list)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
