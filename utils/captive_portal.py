@@ -75,8 +75,8 @@ if __name__ == '__main__':
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
     # Get the list of SSID's available
     # the test ssid list is to run on mac OS
-    # ssid_list = get_ssid_list()
-    ssid_list = ["test"]
+    ssid_list = get_ssid_list()
+    #ssid_list = ["test"]
     print("SSID List: {}".format(ssid_list))
 
     os.system(
