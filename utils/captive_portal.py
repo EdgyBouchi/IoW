@@ -9,8 +9,6 @@ app = Flask(__name__, template_folder='templates')
 
 ssid_list = []
 
-def create_hotspot():
-
 
 def get_ssid_list():
     # Get the list of SSID's available
