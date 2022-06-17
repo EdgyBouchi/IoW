@@ -36,15 +36,15 @@ def index():
         with open('user_register.json', 'w') as f:
             json.dump(request.form, f)
         
-        os.system("sudo nmcli connection down {}".format(hotspot_conn_name))
-        time.sleep(5)
+        os.system("sudo nmcli connection down iow-con")
+        time.sleep(10)
         
         try:
             subprocess.check_output("sudo nmcli dev wifi connect iphone password meloentje")
             print('rebooting ...')
             #os.system("mv /etc/rc.local /etc/captive_portal")
             #os.system("mv /etc/main_iow_script /etc/rc.local")
-            os.system("sudo nmcli connection delete {}".format(hotspot_conn_name))
+            os.system("sudo nmcli connection delete iow-con")
             #add check if possible to connect to network and if internet access is possible
             #sleep necessairy for internet to be available
             return render_template('user_registration_finished.html')
@@ -52,8 +52,8 @@ def index():
         except subprocess.CalledProcessError as e:
             print(e.output)
             print("connection unsuccessfull")
-            os.system("sudo nmcli connection up {}".format(hotspot_conn_name))
-            time.sleep(5)
+            os.system("sudo nmcli connection up iow-con")
+            time.sleep(10)
             return render_template("captive_portal_step_form.html", data=ssid_list)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
