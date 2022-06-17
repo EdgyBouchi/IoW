@@ -63,7 +63,6 @@ def quit_app():
 
 
 if __name__ == '__main__':
-    time.sleep(20)
     selected_ssid = ""
     selected_psk = ""
 
@@ -76,9 +75,9 @@ if __name__ == '__main__':
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
     # Get the list of SSID's available
     # the test ssid list is to run on mac OS
-    ssid_list = get_ssid_list()
+    #ssid_list = get_ssid_list()
     #ssid_list = ["test"]
-    print("SSID List: {}".format(ssid_list))
+    #print("SSID List: {}".format(ssid_list))
 
     os.system(
         "nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface,

@@ -88,13 +88,7 @@ button:hover {
   <h2>Via dit scherm kan u het toestel toegang geven tot uw WiFi netwerk en basisgegevens van de wasmachine meegeven:</h2>
   <!-- One "tab" for each step in the form: -->
   <div class="tab">Wifi netwerk:
-    <p><select placeholder="SSID..." oninput="this.className = ''" id="ssid" name="ssid">
-          {% for item in data %}
-                    <option value="{{ item }}">{{ item }}</option>
-          {% endfor %}
-    </select>
-
-    </p>
+    <p><input placeholder="SSID..." oninput="this.className = ''" id="ssid" name="ssid"></p>
     <p><input placeholder="Password..." oninput="this.className = ''" id="password" name="password" type="password"></p>
   </div>
   <div class="tab">wasmachine gegevens:
