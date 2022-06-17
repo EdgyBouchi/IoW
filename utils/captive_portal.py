@@ -39,8 +39,16 @@ def index():
         os.system("sudo nmcli connection down iow-con")
         time.sleep(10)
         
-        try:
-            subprocess.check_output("sudo nmcli dev wifi connect iphone password meloentje")
+        res = subprocess.Popen('sudo nmcli dev wifi connect iphone password meloentje', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        # Wait for the process end and print error in case of failure 
+        if res.wait() != 0:
+            output, error = res.communicate()
+            print error
+            print("connection unsuccessfull")
+            os.system("sudo nmcli connection up iow-con")
+            time.sleep(10)
+            return render_template("captive_portal_step_form.html", data=ssid_list)
+        else:
             print('rebooting ...')
             #os.system("mv /etc/rc.local /etc/captive_portal")
             #os.system("mv /etc/main_iow_script /etc/rc.local")
@@ -48,13 +56,6 @@ def index():
             #add check if possible to connect to network and if internet access is possible
             #sleep necessairy for internet to be available
             return render_template('user_registration_finished.html')
-            
-        except Error as e:
-            print(e.output)
-            print("connection unsuccessfull")
-            os.system("sudo nmcli connection up iow-con")
-            time.sleep(10)
-            return render_template("captive_portal_step_form.html", data=ssid_list)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
