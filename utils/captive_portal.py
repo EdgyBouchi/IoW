@@ -23,7 +23,9 @@ def get_ssid_list():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    print("testing sever")
     print(request.method)
+    print("floemp")
     if request.method == 'POST':
         # if request.form.get('btn_value') == 'Send':
         # pass
@@ -88,4 +90,4 @@ if __name__ == '__main__':
             hotspot_conn_name, hotspot_password))
     os.system("nmcli con up {}".format(hotspot_conn_name))
 
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=80)
