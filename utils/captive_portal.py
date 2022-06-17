@@ -49,9 +49,9 @@ def index():
             time.sleep(10)
             return render_template("captive_portal_step_form.html", data=ssid_list)
         else:
-            print('rebooting ...')
-            #os.system("mv /etc/rc.local /etc/captive_portal")
-            #os.system("mv /etc/main_iow_script /etc/rc.local")
+            print("connection success")
+            os.system("mv /etc/rc.local /etc/captive_portal")
+            os.system("mv /etc/main_iow_script /etc/rc.local")
             os.system("sudo nmcli connection delete iow-con")
             #add check if possible to connect to network and if internet access is possible
             #sleep necessairy for internet to be available
