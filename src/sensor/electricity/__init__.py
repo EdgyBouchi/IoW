@@ -9,6 +9,8 @@ from grove.adc import ADC
 from config import cfg
 import json
 
+import queue
+
 
 class ACSensor(Process, EdgiseBase):
     def __init__(self, stop_event: Event, logging_q: Queue, washcycle_q: Queue, output_q: Queue,
@@ -18,7 +20,7 @@ class ACSensor(Process, EdgiseBase):
         self._washcycle_q: Queue = washcycle_q
         self._output_q: Queue = output_q
         self.RMS_voltage = 230
-        self.VCC = 5
+        self.VCC = 3.3
         self._config_dict = config_dict
         self._name = self._config_dict['name']
         self._threshold = self._config_dict['threshold']
@@ -50,7 +52,7 @@ class ACSensor(Process, EdgiseBase):
     
 
     def amplitude_current(self, sensor_value):
-        return float(sensor_value / 1024 * self.VCC / 800 * 2000000)
+        return float(sensor_value) / 4096 * self.VCC / 800 * 2000000
 
     def RMS_current(self, amplitude_current):
         return amplitude_current / sqrt(2)
@@ -62,9 +64,10 @@ class ACSensor(Process, EdgiseBase):
         if raw_val > threshold:
             self._washcycle_q.put_nowait(True)
         elif raw_val < threshold:
-            self._washcycle_q.get_nowait()
-        else:
-            pass
+            try:
+                self._washcycle_q.get_nowait()
+            except queue.Empty:
+                pass
 
     def run(self) -> None:
         self.info("Starting AC sensor")
