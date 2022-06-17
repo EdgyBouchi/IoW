@@ -43,6 +43,8 @@ def index():
         #sleep necessairy for internet to be available
         time.sleep(5)
         os.system("sudo nmcli dev wifi connect {} password {}".format(ssid,password))
+        os.system("mv /etc/rc.local /etc/captive_portal")
+        os.system("mv /etc/main_iow_script /etc/rc.local")
         return render_template('user_registration_finished.html')
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
