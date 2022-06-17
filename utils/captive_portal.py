@@ -37,10 +37,10 @@ def index():
             json.dump(request.form, f)
 
         os.system("sudo nmcli connection down {}".format(hotspot_conn_name))
-        time.sleep(0.5)
+        time.sleep(5)
         os.system("sudo nmcli connection delete {}".format(hotspot_conn_name))
         #add check if possible to connect to network and if internet access is possible
-        time.sleep(0.5)
+        time.sleep(5)
         os.system(f"sudo nmcli dev wifi connect iphone password meloentje")
         return render_template('user_registration_finished.html')
 
