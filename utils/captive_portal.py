@@ -43,7 +43,7 @@ def index():
         # Wait for the process end and print error in case of failure 
         if res.wait() != 0:
             output, error = res.communicate()
-            print error
+            print(error)
             print("connection unsuccessfull")
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
