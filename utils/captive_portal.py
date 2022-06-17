@@ -42,10 +42,16 @@ def index():
         #add check if possible to connect to network and if internet access is possible
         #sleep necessairy for internet to be available
         time.sleep(5)
-        os.system("sudo nmcli dev wifi connect {} password {}".format(ssid,password))
-        os.system("mv /etc/rc.local /etc/captive_portal")
-        os.system("mv /etc/main_iow_script /etc/rc.local")
-        return render_template('user_registration_finished.html')
+        output = subprocess.check_output(f"sudo nmcli dev wifi connect {ssid} password {password}", shell=True)
+        if "successfully" in output:
+        #os.system("sudo nmcli dev wifi connect {} password {}".format(ssid,password))
+            print('rebooting ...')
+            os.system("mv /etc/rc.local /etc/captive_portal")
+            os.system("mv /etc/main_iow_script /etc/rc.local")
+            return render_template('user_registration_finished.html')
+        else:
+            print("connection unsuccessfull")
+            return render_template("captive_portal_step_form.html", data=ssid_list)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
