@@ -47,15 +47,12 @@ def index():
             print("connection unsuccessfull")
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
-            return render_template("captive_portal_step_form.html", data=ssid_list)
         else:
             print("connection success")
             os.system("sudo mv /etc/rc.local /etc/captive_portal")
             os.system("sudo mv /etc/main_iow_script /etc/rc.local")
             os.system("sudo nmcli connection delete iow-con")
-            #add check if possible to connect to network and if internet access is possible
-            #sleep necessairy for internet to be available
-            return render_template('user_registration_finished.html')
+            time.sleep(10)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
