@@ -39,7 +39,7 @@ def index():
         os.system("sudo nmcli connection down iow-con")
         time.sleep(10)
         
-        res = subprocess.Popen('sudo nmcli dev wifi connect iphone password meloentje', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        res = subprocess.Popen(f'sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # Wait for the process end and print error in case of failure 
         if res.wait() != 0:
             output, error = res.communicate()
