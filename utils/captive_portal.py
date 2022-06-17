@@ -42,7 +42,7 @@ def index():
         #add check if possible to connect to network and if internet access is possible
         #sleep necessairy for internet to be available
         time.sleep(5)
-        output = subprocess.check_output(f"sudo nmcli dev wifi connect {ssid} password {password}", shell=True)
+        output = subprocess.check_output(f"sudo nmcli dev wifi connect {ssid} password {password}",stdout=subprocess.PIPE, shell=True)
         print(output)
         print(str(output))
         if "successfully" in output:
