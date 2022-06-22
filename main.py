@@ -178,6 +178,10 @@ class Handler(EdgiseBase):
 
         # restart command handler
         while True:
+            
+            measure_AC()
+            time.sleep(1)
+            
             cmd = ""
             # put empty q on input for ac sensor
             # measurement = {'deviceId': cfg.deviceId,

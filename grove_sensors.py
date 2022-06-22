@@ -20,8 +20,8 @@ def read_ac_sensor():
 
 
 def calc_amplitude_current(sensor_value):
-    VCC = 5
-    return float(sensor_value / 1024 * VCC / 800 * 2000000)
+    VCC = 3.3
+    return float(sensor_value / 4096 * VCC / 800 * 2000000)
 
 
 def calc_RMS_current(amplitude_current):
