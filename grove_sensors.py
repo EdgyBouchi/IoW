@@ -31,9 +31,20 @@ def calc_RMS_current(amplitude_current):
 def calc_avg_power_consumption(RMS_current):
     return 230 * RMS_current
 
+def read_sensor():
+    sample_time = 2
+    start_time = time.time()
+    sensor_max = 0
+    print("start sampling")
+    while(time.time() - start_time < sample_time):
+        sensor_value = read_ac_sensor()
+        if(sensor_value > sensor_max):
+            sensor_max = sensor_value
+    print("------------------------------------------------------------sensor value {}".format(sensor_max))
+    return sensor_max
 
 def measure_AC():
-    raw_val = read_ac_sensor()
+    raw_val = read_sensor()
     print("Raw Value: {}".format(raw_val))
     amplitude_current = calc_amplitude_current(raw_val)
     print("A I Value: {}".format(amplitude_current))
@@ -78,13 +89,7 @@ def measure_vibration():
     }
     return measurement
 
-
 if __name__ == '__main__':
-
     while True:
         measurement_ac = measure_AC()
-
-        time.sleep(1)
-        measurement_vibr = measure_vibration()
-
         time.sleep(1)

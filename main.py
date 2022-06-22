@@ -207,6 +207,7 @@ class Handler(EdgiseBase):
 
 
 if __name__ == '__main__':
+    '''
     with open(
             f"{cfg.root_dir}/Asciiart.iow") as f:  # The with keyword automatically closes the file when you are done
         print(f.read())
@@ -237,3 +238,4 @@ if __name__ == '__main__':
     # logging_process.join()
 
     os.execv(sys.executable, ['python3'] + sys.argv)
+    '''
