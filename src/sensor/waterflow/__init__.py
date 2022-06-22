@@ -49,7 +49,7 @@ class WaterflowSensor(Process, EdgiseBase):
         start_time = time.time()
         self.info("start sampling")
         while time.time() - start_time < self.sample_time:
-            if GPIO.event_detect(self._config_dict['Pin']):
+            if GPIO.event_detected(self._config_dict['Pin']):
                 self.pulse_count += 1
         print("Pulses counted: {}".format(self.pulse_count))
         return self.pulse_count
