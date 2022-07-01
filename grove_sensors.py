@@ -15,7 +15,8 @@ ac_adc = ADC()
 
 
 def read_ac_sensor():
-    sensor_value = ac_adc.read(AC_sensor_config['pin'])
+    sensor_value = ac_adc.read_raw(AC_sensor_config['pin'])
+
     return sensor_value
 
 
