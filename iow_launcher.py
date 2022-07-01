@@ -4,9 +4,9 @@ import subprocess
 if __name__ == "__main__":
     print(os.getcwd())
     os.chdir("/home/pi/Documents/IoW")
-    json_path = '/utils/captive_portal/user_register.json'
-    captive_portal_script_path = '/utils/captive_portal.py'
-    main_script_path = 'main.py'
+    json_path = '/home/pi/Documents/IoW/utils/captive_portal/user_register.json'
+    captive_portal_script_path = '/home/pi/Documents/IoW/utils/captive_portal.py'
+    main_script_path = '/home/pi/Documents/IoW/main.py'
     if not os.path.exists(json_path):
         captive_portal_script = subprocess.Popen("sudo python3 {}".format(captive_portal_script_path))
         if captive_portal_script.wait() != 0:
