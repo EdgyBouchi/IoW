@@ -15,13 +15,14 @@ ac_adc = ADC()
 
 
 def read_ac_sensor():
-    sensor_value = ac_adc.read(AC_sensor_config['pin'])
+    sensor_value = ac_adc.read_raw(AC_sensor_config['pin'])
+
     return sensor_value
 
 
 def calc_amplitude_current(sensor_value):
-    VCC = 3.3
-    return float(sensor_value / 4096 * VCC / 800 * 2000000)
+    VCC = 5
+    return float(sensor_value / 1024 * VCC / 800 * 2000000)
 
 
 def calc_RMS_current(amplitude_current):
@@ -31,35 +32,24 @@ def calc_RMS_current(amplitude_current):
 def calc_avg_power_consumption(RMS_current):
     return 230 * RMS_current
 
-def read_sensor():
-    sample_time = 2
-    start_time = time.time()
-    sensor_max = 0
-    print("start sampling")
-    while(time.time() - start_time < sample_time):
-        sensor_value = read_ac_sensor()
-        if(sensor_value > sensor_max):
-            sensor_max = sensor_value
-    print("------------------------------------------------------------sensor value {}".format(sensor_max))
-    return sensor_max
 
 def measure_AC():
-    raw_val = read_sensor()
+    raw_val = read_ac_sensor()
     print("Raw Value: {}".format(raw_val))
-    amplitude_current = calc_amplitude_current(raw_val)
-    print("A I Value: {}".format(amplitude_current))
-    rms_current = calc_RMS_current(amplitude_current)
-    print("RMS I Value: {}".format(rms_current))
-    avg_power = calc_avg_power_consumption(rms_current)
-    print("AVG W Value: {}".format(avg_power))
+    #amplitude_current = calc_amplitude_current(raw_val)
+    #print("A I Value: {}".format(amplitude_current))
+    #rms_current = calc_RMS_current(amplitude_current)
+    #print("RMS I Value: {}".format(rms_current))
+    #avg_power = calc_avg_power_consumption(rms_current)
+    #print("AVG W Value: {}".format(avg_power))
 
-    measurement = {
-        'RawVal': raw_val,
-        'CurrentAmp': amplitude_current,
-        'RMSCurrent': rms_current,
-        'AVGPower': avg_power
-    }
-    return measurement
+    # measurement = {
+    #     'RawVal': raw_val,
+    #     'CurrentAmp': amplitude_current,
+    #     'RMSCurrent': rms_current,
+    #     'AVGPower': avg_power
+    # }
+    return raw_val
 
 
 # Vibration sensor
@@ -89,7 +79,13 @@ def measure_vibration():
     }
     return measurement
 
+
 if __name__ == '__main__':
+
     while True:
         measurement_ac = measure_AC()
-        time.sleep(1)
+
+        #time.sleep(01)
+        #measurement_vibr = measure_vibration()
+
+        #time.sleep(1)

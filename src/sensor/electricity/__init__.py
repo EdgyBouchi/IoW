@@ -43,16 +43,15 @@ class ACSensor(Process, EdgiseBase):
         start_time = time.time()
         sensor_max = 0
         self.info("start sampling")
-        while(time.time() - start_time < sample_time):
-            sensor_value = self.adc.read(self._config_dict['pin'])
-            if(sensor_value > sensor_max):
+        while (time.time() - start_time < sample_time):
+            sensor_value = self.adc.read_raw(self._config_dict['pin'])
+            if (sensor_value > sensor_max):
                 sensor_max = sensor_value
         print("------------------------------------------------------------sensor value {}".format(sensor_max))
         return sensor_max
-    
 
     def amplitude_current(self, sensor_value):
-        return float(sensor_value) / 4096 * self.VCC / 800 * 2000000
+        return 2 * (float(sensor_value) / 4096 * self.VCC / 800 * 2000)  # 1:2000 coils -> A => 2000000 mA
 
     def RMS_current(self, amplitude_current):
         return amplitude_current / sqrt(2)
@@ -72,7 +71,7 @@ class ACSensor(Process, EdgiseBase):
     def run(self) -> None:
         self.info("Starting AC sensor")
         print(self._config_dict['name'])
-        #threshold = 4 # not representable value
+        # threshold = 4 # not representable value
 
         while not self._stop_event.is_set():
 
@@ -81,11 +80,10 @@ class ACSensor(Process, EdgiseBase):
                 raw_val = self.read_sensor()
             finally:
                 self.i2c_lock.release()
-            
+
             self.info("threshold: {}".format(self._threshold))
             self.start_washcycle(raw_val, self._threshold)
             if not self._washcycle_q.empty():
-                
                 self.info("Raw Value: {}".format(raw_val))
                 amplitude_current = self.amplitude_current(raw_val)
                 self.info("A I Value: {}".format(amplitude_current))
