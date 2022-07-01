@@ -2,6 +2,7 @@ import os.path
 import subprocess
 
 if __name__ == "__main__":
+    print(os.getcwd())
     os.chdir("~/Documents/IoW/")
     json_path = 'utils/captive_portal/user_register.json'
     captive_portal_script_path = 'utils/captive_portal.py'
