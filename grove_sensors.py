@@ -35,20 +35,20 @@ def calc_avg_power_consumption(RMS_current):
 def measure_AC():
     raw_val = read_ac_sensor()
     print("Raw Value: {}".format(raw_val))
-    amplitude_current = calc_amplitude_current(raw_val)
-    print("A I Value: {}".format(amplitude_current))
-    rms_current = calc_RMS_current(amplitude_current)
-    print("RMS I Value: {}".format(rms_current))
-    avg_power = calc_avg_power_consumption(rms_current)
-    print("AVG W Value: {}".format(avg_power))
+    #amplitude_current = calc_amplitude_current(raw_val)
+    #print("A I Value: {}".format(amplitude_current))
+    #rms_current = calc_RMS_current(amplitude_current)
+    #print("RMS I Value: {}".format(rms_current))
+    #avg_power = calc_avg_power_consumption(rms_current)
+    #print("AVG W Value: {}".format(avg_power))
 
-    measurement = {
-        'RawVal': raw_val,
-        'CurrentAmp': amplitude_current,
-        'RMSCurrent': rms_current,
-        'AVGPower': avg_power
-    }
-    return measurement
+    # measurement = {
+    #     'RawVal': raw_val,
+    #     'CurrentAmp': amplitude_current,
+    #     'RMSCurrent': rms_current,
+    #     'AVGPower': avg_power
+    # }
+    return raw_val
 
 
 # Vibration sensor
