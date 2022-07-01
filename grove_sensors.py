@@ -84,7 +84,7 @@ if __name__ == '__main__':
     while True:
         measurement_ac = measure_AC()
 
-        time.sleep(1)
-        measurement_vibr = measure_vibration()
+        #time.sleep(01)
+        #measurement_vibr = measure_vibration()
 
-        time.sleep(1)
+        #time.sleep(1)
