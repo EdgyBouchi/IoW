@@ -44,14 +44,14 @@ def index():
         if res.wait() != 0:
             output, error = res.communicate()
             print(error)
-            print("connection unsuccessfull")
+            print("connection unsuccessful")
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
         else:
             print("connection success")
-            os.system("sudo mv /etc/rc.local /etc/captive_portal")
-            os.system("sudo mv /etc/main_iow_script /etc/rc.local")
-            os.system("sudo nmcli connection delete iow-con")
+            #os.system("sudo mv /etc/rc.local /etc/captive_portal")
+            #os.system("sudo mv /etc/main_iow_script /etc/rc.local")
+            #os.system("sudo nmcli connection delete iow-con")
             time.sleep(10)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
@@ -82,11 +82,6 @@ if __name__ == '__main__':
     os.system("nmcli connection down {}".format(hotspot_conn_name))
     time.sleep(0.5)
     os.system("nmcli connection delete {}".format(hotspot_conn_name))
-    # Get the list of SSID's available
-    # the test ssid list is to run on mac OS
-    #ssid_list = get_ssid_list()
-    #ssid_list = ["test"]
-    #print("SSID List: {}".format(ssid_list))
 
     os.system(
         "nmcli connection add type wifi ifname {} con-name {} autoconnect yes ssid {} mode ap".format(hotspot_interface,

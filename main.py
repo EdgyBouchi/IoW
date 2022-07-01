@@ -179,7 +179,6 @@ class Handler(EdgiseBase):
         # restart command handler
         while True:
             
-            measure_AC()
             time.sleep(1)
             
             cmd = ""
