@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request,  redirect, render_template
+from flask import Flask, request, redirect, render_template
 import os
 import subprocess
 import time
@@ -35,11 +35,12 @@ def index():
 
         with open('user_register.json', 'w') as f:
             json.dump(request.form, f)
-        
+
         os.system("sudo nmcli connection down iow-con")
         time.sleep(10)
-        
-        res = subprocess.Popen(f'sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+        res = subprocess.Popen(f'sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, shell=True)
         # Wait for the process end and print error in case of failure 
         if res.wait() != 0:
             output, error = res.communicate()
@@ -49,10 +50,11 @@ def index():
             time.sleep(10)
         else:
             print("connection success")
-            #os.system("sudo mv /etc/rc.local /etc/captive_portal")
-            #os.system("sudo mv /etc/main_iow_script /etc/rc.local")
-            #os.system("sudo nmcli connection delete iow-con")
+            # os.system("sudo mv /etc/rc.local /etc/captive_portal")
+            # os.system("sudo mv /etc/main_iow_script /etc/rc.local")
+            # os.system("sudo nmcli connection delete iow-con")
             time.sleep(10)
+            return redirect('/shutdown')
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
@@ -62,13 +64,17 @@ def index():
 # def catch_all(path):
 #     return redirect("http://10.42.0.1:8000/captive_portal_step_form")
 
-
-@app.route('/quit')
-def quit_app():
+def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+
+
+@app.get('/shutdown')
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
 
 
 if __name__ == '__main__':
