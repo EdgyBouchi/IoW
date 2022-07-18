@@ -9,7 +9,7 @@ app = Flask(__name__, template_folder='templates')
 
 ssid_list = []
 
-
+#popen DOES NOT PARSE WHITESPACES IN NETWORK SSID -> NEEDS TO BE FIXED
 def get_ssid_list():
     # Get the list of SSID's available
     ssids = subprocess.run(['nmcli', '-f', 'SSID', 'device', 'wifi'], stdout=subprocess.PIPE)
