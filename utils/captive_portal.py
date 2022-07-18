@@ -33,7 +33,7 @@ def index():
             print(f"other SSID selected : {ssid}")
         password = request.form['password']
 
-        with open('user_register.json', 'w') as f:
+        with open('/home/pi/Documents/IoW/utils/captive_portal/user_register.json', 'w') as f:
             json.dump(request.form, f)
 
         os.system("sudo nmcli connection down iow-con")
