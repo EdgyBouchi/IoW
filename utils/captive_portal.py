@@ -71,7 +71,7 @@ def shutdown_server():
     func()
 
 
-@app.get('/shutdown')
+@app.route('/shutdown')
 def shutdown():
     shutdown_server()
     return 'Server shutting down...'
