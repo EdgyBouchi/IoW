@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, url_for
 import os
 import subprocess
 import time
@@ -54,7 +54,7 @@ def index():
             # os.system("sudo mv /etc/main_iow_script /etc/rc.local")
             # os.system("sudo nmcli connection delete iow-con")
             time.sleep(10)
-            return redirect('/shutdown')
+            return redirect(url_for('shutdown'), code=307)
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
