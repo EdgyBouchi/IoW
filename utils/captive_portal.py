@@ -1,4 +1,5 @@
 import json
+import sys
 
 from flask import Flask, request, redirect, render_template, url_for
 import os
@@ -9,7 +10,8 @@ app = Flask(__name__, template_folder='templates')
 
 ssid_list = []
 
-#popen DOES NOT PARSE WHITESPACES IN NETWORK SSID -> NEEDS TO BE FIXED
+
+# popen DOES NOT PARSE WHITESPACES IN NETWORK SSID -> NEEDS TO BE FIXED
 def get_ssid_list():
     # Get the list of SSID's available
     ssids = subprocess.run(['nmcli', '-f', 'SSID', 'device', 'wifi'], stdout=subprocess.PIPE)
@@ -69,6 +71,7 @@ def shutdown_server():
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+    sys.exit()
 
 
 @app.route('/shutdown', methods=['GET'])
