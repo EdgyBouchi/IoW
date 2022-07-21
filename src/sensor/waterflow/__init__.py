@@ -82,6 +82,6 @@ class WaterflowSensor(Process, EdgiseBase):
                 'flowHour': flow_h
             }}
             measurement = {'data': data}
-            if not self._washcycle_q.empty():
+            if not self._washcycle_q.empty() and raw_val > 0:
                 self._output_q.put_nowait({'event': json.dumps(measurement)})
         time.sleep(1)
