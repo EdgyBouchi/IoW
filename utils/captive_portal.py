@@ -50,6 +50,7 @@ def index():
             print("connection unsuccessful")
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
+            os.remove('/home/pi/Documents/IoW/utils/captive_portal/user_register.json')
         else:
             print("connection success")
             # os.system("sudo mv /etc/rc.local /etc/captive_portal")

@@ -11,6 +11,7 @@ if __name__ == "__main__":
         captive_portal_script = subprocess.Popen("sudo python3 {}".format(captive_portal_script_path), shell=True)
         if captive_portal_script.wait() != 0:
             print("captive portal failed")
+            os.remove(json_path)
         else:
             print("starting main script")
             main_script = subprocess.Popen("echo {} | sudo python3 {}".format("ucllstudent", main_script_path),shell=True)
