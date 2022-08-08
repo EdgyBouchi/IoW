@@ -23,7 +23,7 @@ def get_ssid_list():
     return ssids
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/portal", methods=['GET', 'POST'])
 def index():
     print(request.method)
     if request.method == 'POST':
@@ -50,7 +50,7 @@ def index():
             print("connection unsuccessful")
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
-            os.remove('/home/pi/Documents/IoW/utils/captive_portal/user_register.json')
+            return redirect(url_for('shutdown'), code=307)
         else:
             print("connection success")
             # os.system("sudo mv /etc/rc.local /etc/captive_portal")
@@ -62,10 +62,10 @@ def index():
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     return redirect("http://10.42.0.1:8000/captive_portal_step_form")
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return redirect("http://10.42.0.1:80/portal")
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -100,6 +100,6 @@ if __name__ == '__main__':
     os.system(
         "nmcli connection modify {} 802-11-wireless.mode ap 802-11-wireless-security.key-mgmt wpa-psk  ipv4.method shared 802-11-wireless-security.psk {}".format(
             hotspot_conn_name, hotspot_password))
-    os.system("nmcli con up {}".format(hotspot_conn_name))
+    os.system("nmcli connection up {}".format(hotspot_conn_name))
 
     app.run(host='0.0.0.0', port=80)
