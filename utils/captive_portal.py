@@ -52,11 +52,11 @@ def index():
             os.remove('/home/pi/Documents/IoW/utils/captive_portal/user_register.json')
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
-            return redirect(url_for('shutdown'), code=307)
+            return redirect("http://10.42.0.1:80/shutdown")
         else:
             print("connection success")
             time.sleep(10)
-            return redirect(url_for('shutdown'), code=307)
+            return redirect("http://10.42.0.1:80/shutdown")
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
 
