@@ -74,7 +74,7 @@ def shutdown_server():
     sys.exit()
 
 
-@app.route('/shutdown', methods=['GET'])
+@app.route('/shutdown', methods=['GET', 'POST'])
 def shutdown():
     shutdown_server()
     return 'Server shutting down...'
