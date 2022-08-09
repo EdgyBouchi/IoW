@@ -43,19 +43,18 @@ def index():
 
         res = subprocess.Popen(f'sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE, shell=True)
-        # Wait for the process end and print error in case of failure 
+        # Wait for the process end and print error in case of failure
+
         if res.wait() != 0:
             output, error = res.communicate()
             print(error)
             print("connection unsuccessful")
+            os.remove('/home/pi/Documents/IoW/utils/captive_portal/user_register.json')
             os.system("sudo nmcli connection up iow-con")
             time.sleep(10)
             return redirect(url_for('shutdown'), code=307)
         else:
             print("connection success")
-            # os.system("sudo mv /etc/rc.local /etc/captive_portal")
-            # os.system("sudo mv /etc/main_iow_script /etc/rc.local")
-            # os.system("sudo nmcli connection delete iow-con")
             time.sleep(10)
             return redirect(url_for('shutdown'), code=307)
 
