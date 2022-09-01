@@ -24,7 +24,7 @@ class ACSensor(Process, EdgiseBase):
         self._config_dict = config_dict
         self._name = self._config_dict['name']
         self._threshold = self._config_dict['threshold']
-        self.adc = ADC()
+        self.adc = ADC(address=self._config_dict['i2cAddress'])
         self.i2c_lock = resource_lock
 
         Process.__init__(self)

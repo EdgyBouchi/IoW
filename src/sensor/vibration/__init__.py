@@ -15,7 +15,7 @@ class VibrationSensor(Process, EdgiseBase):
         self._washcycle_q: Queue = washcycle_q
         self._output_q: Queue = output_q
         self._config_dict = config_dict
-        self.adc = ADC()
+        self.adc = ADC(address=self._config_dict['i2cAddress'])
         self.i2c_lock = resource_lock
 
         Process.__init__(self)

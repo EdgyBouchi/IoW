@@ -25,6 +25,11 @@ import json
 
 class Handler(EdgiseBase):
     def __init__(self, stop_event: mpEvent, logging_q: Queue, mqtt_send_q, resource_lock: Lock):
+        self._ac_sensor = None
+        self._environment_sensor = None
+        self._vibration_sensor = None
+        self._wf_sensor = None
+
         self._logging_q = logging_q
         self._stop_event = stop_event
         self._i2c_lock = resource_lock
@@ -52,90 +57,7 @@ class Handler(EdgiseBase):
 
         self._services.append(self.update_watcher)
 
-        # Queues for AC sensor
-        self._washcycle_q = Queue()
-
-        # connect AC sensor to analog port A0
-        AC_sensor_config = {
-            'name': "Electricity sensor",
-            'pin': 0,
-            'type': "INPUT",
-            'unit': "mA",
-            'threshold': cfg.get_ac_threshold
-        }
-
-        config_json = json.dumps(AC_sensor_config)
-
-        self._ac_sensor = ACSensor(stop_event=self._stop_event,
-                                   logging_q=self._logging_q,
-                                   washcycle_q=self._washcycle_q,
-                                   output_q=self._mqtt_send_q,
-                                   config_dict=AC_sensor_config,
-                                   resource_lock=self._i2c_lock
-                                   )
-        self._services.append(self._ac_sensor)
-
-        # Queues for env sensor
-        self._input_env_q = Queue()
-        self._output_env_q = Queue()
-
-        # connect env sensor to I2c
-        self.env_sensor_config = {
-            'name': "Environment Sensor",
-            'port': 1,
-            'address': 0x76,
-            'type': "INPUT",
-            'unit': ("°C", "hPa", " % rH"),
-        }
-
-        self._environment_sensor = EnvironmentSensor(stop_event=self._stop_event,
-                                                     logging_q=self._logging_q,
-                                                     washcycle_q=self._washcycle_q,
-                                                     output_q=self._mqtt_send_q,
-                                                     config_dict=self.env_sensor_config,
-                                                     resource_lock=self._i2c_lock
-                                                     )
-        self._services.append(self._environment_sensor)
-
-        # Queues for vibration sensor
-        self._input_vibration_q = Queue()
-        self._output_vibration_q = Queue()
-
-        # connect vibration sensor to analog port A2
-        vibration_sensor_config = {
-            'name': 'Vibration sensor',
-            'pin': 2,
-            'type': 'INPUT',
-            'unit': 'MHz',
-        }
-
-        self._vibration_sensor = VibrationSensor(stop_event=self._stop_event,
-                                                 logging_q=self._logging_q,
-                                                 washcycle_q=self._washcycle_q,
-                                                 output_q=self._mqtt_send_q,
-                                                 config_dict=vibration_sensor_config,
-                                                 resource_lock=self._i2c_lock
-                                                 )
-        self._services.append(self._vibration_sensor)
-
-        # # Queues for  sensor
-        # self._input_wf_q = Queue()
-        # self._output_wf_q = Queue()
-        #
-        # # connect waterflow sensor to analog port
-        wf_sensor_config = {
-            'name': 'Waterflow sensor',
-            'Pin': 13,
-            'Type': 'INPUT',
-        }
-
-        self._wf_sensor = WaterflowSensor(stop_event=self._stop_event,
-                                          logging_q=self._logging_q,
-                                          washcycle_q=self._washcycle_q,
-                                          output_q=self._mqtt_send_q,
-                                          config_dict=wf_sensor_config
-                                          )
-        self._services.append(self._wf_sensor)
+        self.init_sensors()
 
         # Initialze MQTT process
         self.edgise_mqtt = EdgiseMQTT(stop_event=self._stop_event,
@@ -161,6 +83,101 @@ class Handler(EdgiseBase):
         self._services.append(self.uploader_process)
 
         self.info('--------------------------- App initialization complete ---------------------------')
+
+    def init_sensors(self):
+        self.init_ac_sensor()
+        self.init_environment_sensor()
+        self.init_vibration_sensor()
+        self.init_waterflow_sensor()
+
+    def init_ac_sensor(self):
+        # Queues for AC sensor
+        self._washcycle_q = Queue()
+
+        # connect AC sensor to analog port A0
+        AC_sensor_config = {
+            'name': "Electricity sensor",
+            'pin': 0,
+            'type': "INPUT",
+            'unit': "mA",
+            'threshold': cfg.get_ac_threshold,
+            'i2cAddress': 0x08
+        }
+
+        self._ac_sensor = ACSensor(stop_event=self._stop_event,
+                                   logging_q=self._logging_q,
+                                   washcycle_q=self._washcycle_q,
+                                   output_q=self._mqtt_send_q,
+                                   config_dict=AC_sensor_config,
+                                   resource_lock=self._i2c_lock
+                                   )
+        self._services.append(self._ac_sensor)
+
+    def init_environment_sensor(self):
+        # Queues for env sensor
+        #self._input_env_q = Queue()
+        #self._output_env_q = Queue()
+
+        # connect env sensor to I2c
+        self.env_sensor_config = {
+            'name': "Environment Sensor",
+            'port': 1,
+            'address': 0x76,
+            'type': "INPUT",
+            'unit': ("°C", "hPa", " % rH"),
+        }
+
+        self._environment_sensor = EnvironmentSensor(stop_event=self._stop_event,
+                                                     logging_q=self._logging_q,
+                                                     washcycle_q=self._washcycle_q,
+                                                     output_q=self._mqtt_send_q,
+                                                     config_dict=self.env_sensor_config,
+                                                     resource_lock=self._i2c_lock
+                                                     )
+        self._services.append(self._environment_sensor)
+
+    def init_vibration_sensor(self):
+        # Queues for vibration sensor
+        self._input_vibration_q = Queue()
+        self._output_vibration_q = Queue()
+
+        # connect vibration sensor to analog port A2
+        vibration_sensor_config = {
+            'name': 'Vibration sensor',
+            'pin': 2,
+            'type': 'INPUT',
+            'unit': 'MHz',
+            'i2cAddress': 0x08
+        }
+
+        self._vibration_sensor = VibrationSensor(stop_event=self._stop_event,
+                                                 logging_q=self._logging_q,
+                                                 washcycle_q=self._washcycle_q,
+                                                 output_q=self._mqtt_send_q,
+                                                 config_dict=vibration_sensor_config,
+                                                 resource_lock=self._i2c_lock
+                                                 )
+        self._services.append(self._vibration_sensor)
+
+    def init_waterflow_sensor(self):
+        # # Queues for  sensor
+        # self._input_wf_q = Queue()
+        # self._output_wf_q = Queue()
+        #
+        # # connect waterflow sensor to analog port
+        wf_sensor_config = {
+            'name': 'Waterflow sensor',
+            'Pin': 13, # [TODO] [JD] change to 16(?) when using grove socket and connecting yellow to yellow?
+            'Type': 'INPUT',
+        }
+
+        self._wf_sensor = WaterflowSensor(stop_event=self._stop_event,
+                                          logging_q=self._logging_q,
+                                          washcycle_q=self._washcycle_q,
+                                          output_q=self._mqtt_send_q,
+                                          config_dict=wf_sensor_config
+                                          )
+        self._services.append(self._wf_sensor)
 
     def stop(self):
         self.info('Stopping services')
@@ -203,8 +220,7 @@ class Handler(EdgiseBase):
 
 
 if __name__ == '__main__':
-    with open(
-            f"{cfg.root_dir}/Asciiart.iow") as f:  # The with keyword automatically closes the file when you are done
+    with open(f"{cfg.root_dir}/Asciiart.iow") as f:  # The with keyword automatically closes the file when you are done
         print(f.read())
 
     logging_q = Queue()
