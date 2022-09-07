@@ -9,6 +9,9 @@ sudo apt purge openresolv dhcpcd5 -y
 echo "restarting network manager service"
 sudo systemctl restart systemd-networkd
 
+#enable i2C
+sudo raspi-config nonint do_i2c 0
+
 echo "cloning repos"
 cd ~
 cd ./Documents
