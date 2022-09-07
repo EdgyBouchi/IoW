@@ -34,6 +34,10 @@ def index():
             ssid = request.form['other_ssid']
             print(f"other SSID selected : {ssid}")
         password = request.form['password']
+        if not(ssid.startswith('"')):
+            ssid = '"' + ssid + '"'
+        if not(password.startswith('"')):
+            password = '"' + password + '"'    
 
         with open('/home/pi/Documents/IoW/utils/captive_portal/user_register.json', 'w') as f:
             json.dump(request.form, f)
