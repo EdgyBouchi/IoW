@@ -4,14 +4,15 @@ echo "starting patching script"
 sudo apt-get install -y
 sudo apt-get install network-manager -y
 sudo nmcli con add type wifi ifname wlan0 con-name Hostspot autoconnect yes ssid Hostspot
-sudo apt purge openresolv dhcpcd5
+sudo apt purge openresolv dhcpcd5 -y
 
 echo "restarting network manager service"
 sudo systemctl restart systemd-networkd
 
 echo "cloning repos"
-cd ./Documents/
-git clone -b test https://github.com/EdgyBouchi/IoW.git
+cd ~
+cd ./Documents
+git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git
 cd ~
 git clone https://github.com/Seeed-Studio/grove.py
 cd grove.py/ 
