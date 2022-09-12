@@ -16,7 +16,7 @@ sudo raspi-config nonint do_i2c 0
 echo "cloning repos"
 cd ~
 cd ./Documents
-git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git
+git clone -b test https://github.com/EdgyBouchi/IoW.git
 cd ~
 git clone https://github.com/Seeed-Studio/grove.py
 cd grove.py/ 
