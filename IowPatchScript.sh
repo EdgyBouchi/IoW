@@ -3,6 +3,7 @@
 echo "starting patching script"
 sudo apt-get install -y
 sudo apt-get install network-manager -y
+sudo ap-get install tmux -y
 sudo nmcli con add type wifi ifname wlan0 con-name Hostspot autoconnect yes ssid Hostspot
 sudo apt purge openresolv dhcpcd5 -y
 
@@ -37,7 +38,8 @@ echo "crontab changes for startup automation"
 crontab -l > mycron
 #echo new cron into cron file
 #echo "@reboot python3 ./Documents/IoW/iow_launcher.py" > mycron
-echo '@reboot tmux new-session -d -s iow "python3 ./Documents/IoW/iow_launcher.py"' > mycron
+# '@reboot tmux new-session -d -s iow "python3 ./Documents/IoW/iow_launcher.py"' > mycron
+echo "@reboot ./Documents/IoW/bootscript.sh" > mycron
 echo "0 2 * * * ./Documents/IoW/crontab_pull.sh" >> mycron
 #install new cron file
 crontab mycron
