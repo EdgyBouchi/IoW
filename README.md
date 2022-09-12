@@ -1,9 +1,9 @@
 # README #
 # installation/patching
 
-excecute git clone -b main https://github.com/EdgyBouchi/IoW.git
+excecute git clone -b main https://github.com/EdgyBouchi/IoW.git in the ./Documents directory
 
-* in the ./documents/IoW directory execute ./IowPatchscript.sh
+* execute ./install.sh
 * should install all necessary files
 * reboot after script => hotspot is setup upon reboot
 * after filling in network info reboot again to startup service
