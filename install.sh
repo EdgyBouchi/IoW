@@ -31,7 +31,7 @@ sudo pip3 install .
 
 echo "requirements.txt"
 cd ~
-cd IoW
+cd ./Documents/IoW
 pip install -r requirements.txt
 
 # delete user registration file placeholder
