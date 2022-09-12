@@ -1,6 +1,13 @@
 # README #
+# installation/patching
 
-This README would normally document whatever steps are necessary to get your application up and running.
+excecute git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git 
+
+* in the ./documents/IoW directory execute ./IowPatchscript.sh
+* should install all necessary files
+* reboot after script => hotspot is setup upon reboot
+* after filling in network info reboot again to startup service
+* crontab job should check for new code every day at 02am
 
 ### What is this repository for? ###
 
