@@ -3,7 +3,7 @@
 echo "starting patching script"
 sudo apt-get install -y
 sudo apt-get install network-manager -y
-sudo ap-get install tmux -y
+sudo apt-get install tmux -y
 sudo nmcli con add type wifi ifname wlan0 con-name Hostspot autoconnect yes ssid Hostspot
 sudo apt purge openresolv dhcpcd5 -y
 
