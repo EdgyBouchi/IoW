@@ -1,7 +1,7 @@
 # README #
 # installation/patching
 
-excecute git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git 
+excecute git clone -b test https://github.com/EdgyBouchi/IoW.git
 
 * in the ./documents/IoW directory execute ./IowPatchscript.sh
 * should install all necessary files
