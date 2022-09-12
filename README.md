@@ -7,7 +7,7 @@ excecute git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git
 * should install all necessary files
 * reboot after script => hotspot is setup upon reboot
 * after filling in network info reboot again to startup service
-* crontab job should check for new code every day at 02am
+* crontab job should check for new code every day at 02am via a git pull
 
 ## how to acces terminal
 * crontab starts a tmux session
