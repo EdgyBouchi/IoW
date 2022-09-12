@@ -25,7 +25,6 @@ git clone -b main https://github.com/EdgyBouchi/IoW.git
 cd ~
 git clone https://github.com/Seeed-Studio/grove.py
 cd grove.py/ 
-cd grove.py/ 
 echo "pip installs grove"
 sudo pip3 install .
 
