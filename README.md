@@ -9,6 +9,12 @@ excecute git clone -b test https://github.com/RobrechtUlenaersPXL/IoW.git
 * after filling in network info reboot again to startup service
 * crontab job should check for new code every day at 02am
 
+## how to acces terminal
+* crontab starts a tmux session, to acces it run the following command:
+* tmux attach-session -t iow
+* to leave use keys ctrl+b then D to detach
+* ctrl+b then X to delete session
+
 ### What is this repository for? ###
 
 * Quick summary
