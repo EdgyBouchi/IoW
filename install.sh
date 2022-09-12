@@ -35,6 +35,7 @@ cd ./Documents/IoW
 pip install -r requirements.txt
 
 # delete user registration file placeholder
+cd ~
 sudo rm ./Documents/IoW/utils/captive_portal/user_register.json
 
 echo "crontab changes for startup automation"
