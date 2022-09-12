@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # IoW script to install all prerequisites
 echo "starting install script"
 
