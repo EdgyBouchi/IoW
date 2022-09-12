@@ -36,7 +36,8 @@ echo "crontab changes for startup automation"
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "@reboot python3 ./Documents/IoW/iow_launcher.py" > mycron
+#echo "@reboot python3 ./Documents/IoW/iow_launcher.py" > mycron
+echo '@reboot tmux new-session -d -s iow "python3 ./Documents/IoW/iow_launcher.py"' > mycron
 echo "0 2 * * * ./Documents/IoW/crontab_pull.sh" >> mycron
 #install new cron file
 crontab mycron
