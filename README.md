@@ -1,29 +1,20 @@
 # README #
+# installation/patching
 
-This README would normally document whatever steps are necessary to get your application up and running.
+excecute git clone -b main https://github.com/EdgyBouchi/IoW.git
 
-### What is this repository for? ###
+* in the ./documents/IoW directory execute ./IowPatchscript.sh
+* should install all necessary files
+* reboot after script => hotspot is setup upon reboot
+* after filling in network info reboot again to startup service
+* crontab job should check for new code every day at 02am via a git pull
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## how to acces terminal
+* crontab starts a tmux session
+* all services run in this tmux session
+* to acces it run the following command:
+* tmux attach-session -t iow
+* to leave use keys ctrl+b then D to detach
+* ctrl+b then X to delete session if necessary
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
