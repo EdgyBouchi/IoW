@@ -52,3 +52,5 @@ sudo rm mycron
 echo "patching script complete"
 echo "patching script complete"
 echo "patching script complete"
+echo "rebooting and starting captive captive_portal"
+sudo reboot now
