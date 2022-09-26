@@ -59,7 +59,8 @@ def index():
             sys.exit()
         else:
             print("connection success")
-            time.sleep(10)
+            time.sleep(30)
+            os.system('sudo reboot -h now')
             sys.exit()
 
     return render_template("captive_portal_step_form.html", data=ssid_list)
