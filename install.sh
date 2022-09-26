@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # IoW script to install all prerequisites
+
+git pull
 echo "starting install script"
 
 sudo systemctl enable ssh
