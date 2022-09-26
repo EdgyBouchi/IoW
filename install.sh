@@ -2,7 +2,6 @@
 
 # IoW script to install all prerequisites
 
-git pull
 echo "starting install script"
 
 sudo systemctl enable ssh
@@ -24,6 +23,8 @@ echo "cloning repos"
 cd ~
 cd ./Documents
 git clone -b main https://github.com/EdgyBouchi/IoW.git
+cd ./IoW
+git pull
 cd ~
 git clone https://github.com/Seeed-Studio/grove.py
 cd grove.py/ 
