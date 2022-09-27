@@ -98,6 +98,7 @@ class EnvironmentSensor(Process, EdgiseBase):
                 self.info("Pressure: {} hPa, where correction is {} hPa, sensor reading is {} hPa".format(
                     self.bme_sensor.calibrated_pressure, self.bme_sensor.calibration_pressure,
                     self.bme_sensor.pressure))
+                self.info(str(self.bme_sensor.humidity))
                 self.info("Humidity: {} %RH".format(self.bme_sensor.humidity))
                 self.info(
                     "altitude from sea level: {}m, {}".format(
