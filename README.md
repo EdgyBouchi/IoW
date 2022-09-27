@@ -2,7 +2,9 @@
 # installation/patching
 
 excecute 
+
 git clone -b main https://github.com/EdgyBouchi/IoW.git 
+
 in the ./Documents directory
 
 * execute ./install.sh
