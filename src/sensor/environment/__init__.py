@@ -2,7 +2,6 @@ from multiprocessing import Process, Event, Queue, Lock
 
 from src.base import EdgiseBase
 from grove.modules.bme280 import bme280
-import bme280
 import time
 from config import cfg
 import json
