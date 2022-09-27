@@ -1,7 +1,9 @@
 from multiprocessing import Process, Event, Queue, Lock
 
+from bme280_test import *
 from src.base import EdgiseBase
 from grove.modules.bme280 import bme280
+
 import time
 from config import cfg
 import json
@@ -92,7 +94,7 @@ class EnvironmentSensor(Process, EdgiseBase):
                     #   Only works if pressure calibration is done with set_pressure_calibration()
                     altitude = self.bme_sensor.get_altitude(self.current_sea_level_pressure)
                     # self.bme_sensor.write_reset()
-                    temp, pres , humid = bme280.main()
+                    temp, pres , humid = bme280_test.main()
 
                 # self.info out the data
                 self.info("Temperature: {} deg".format(self.bme_sensor.temperature))
