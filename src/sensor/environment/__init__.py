@@ -1,6 +1,5 @@
 from multiprocessing import Process, Event, Queue, Lock
 
-from bme280_test import *
 from src.base import EdgiseBase
 from grove.modules.bme280 import bme280
 
