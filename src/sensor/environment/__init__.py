@@ -101,25 +101,27 @@ class EnvironmentSensor(Process, EdgiseBase):
                     #   Only works if pressure calibration is done with set_pressure_calibration()
                     altitude = self.bme_sensor.get_altitude(self.current_sea_level_pressure)
                     # self.bme_sensor.write_reset()
-                    temp, pres , humid = self.bme_sensor_reader.get_sensor_values()
+                    helper_temperature, helper_pressure , helper_humidity = self.bme_sensor_reader.get_sensor_values()
 
                 # self.info out the data
                 self.info("Temperature: {} deg".format(self.bme_sensor.temperature))
                 self.info("Pressure: {} hPa, where correction is {} hPa, sensor reading is {} hPa".format(
                     self.bme_sensor.calibrated_pressure, self.bme_sensor.calibration_pressure,
                     self.bme_sensor.pressure))
-                self.info("temp ; {}   pres {} ,   hum{}  ".format(temp,pres,humid))
+                self.info(" values of the helper class:    temperature ; {}   pressure {} ,   humidity  {}%RH  ".format(helper_temperature,helper_pressure,helper_humidity))
                 self.info("Humidity: {} %RH".format(self.bme_sensor.humidity))
                 self.info(
                     "altitude from sea level: {}m, {}".format(
                         altitude, self.bme_sensor.calibrated_pressure + altitude / 8))
 
                 data = {"environmentSensorData": {
-                    "temperature": self.bme_sensor.temperature,
+                    #"temperature": self.bme_sensor.temperature,
+                    "temperature": helper_temperature,
                     "pressureSensorReading": self.bme_sensor.pressure,
                     "pressureCorrrection": self.bme_sensor.calibration_pressure,
                     "pressure": self.bme_sensor.calibrated_pressure,
-                    "humidity": self.bme_sensor.humidity,
+                    #"humidity": self.bme_sensor.humidity,
+                    "humidity": helper_humidity,
                     "altitude": altitude
                     }
                 }
