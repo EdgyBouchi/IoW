@@ -28,6 +28,8 @@ in the ./Documents directory
 * ctrl+b then X to delete session if necessary
 
 ## portal
+connect to wifi network iow-device
+ww iowiowiow
 got to 10.42.0.1/
 fill in wifi settings
 should reboot
