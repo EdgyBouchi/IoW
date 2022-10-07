@@ -27,4 +27,9 @@ in the ./Documents directory
 * to leave use keys ctrl+b then D to detach
 * ctrl+b then X to delete session if necessary
 
+## portal
+got to 10.42.0.1/
+fill in wifi settings
+should reboot
+
 
