@@ -1,6 +1,12 @@
 # README #
 # installation/patching
 
+
+ctr alt t for terminal -> ifconfig for ip
+ssh pi@ xxxxxxxxxxxx
+ww raspberry
+
+
 excecute 
 
 git clone -b main https://github.com/EdgyBouchi/IoW.git 
