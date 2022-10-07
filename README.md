@@ -33,5 +33,5 @@ ww iowiowiow
 got to 10.42.0.1/
 fill in wifi settings
 should reboot
-
+sudo reboot now if error on sensors
 
