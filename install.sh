@@ -40,6 +40,14 @@ sudo pip install -r requirements.txt
 cd ~
 sudo rm ./Documents/IoW/utils/captive_portal/user_register.json
 
+echo "adding tmux configuration file"
+cd ~
+sudo rm .tmux.conf
+touch .tmux.conf
+echo " set -g mouse on
+set -g default-terminal 'screen-256color'
+set-window-option -g xterm-keys on" > .tmux.conf
+
 echo "crontab changes for startup automation"
 #write out current crontab
 crontab -l > mycron
