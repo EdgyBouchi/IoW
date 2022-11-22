@@ -105,6 +105,9 @@ class EdgiseMQTT(Thread, EdgiseBase):
             except Exception as e:
                 self._mqtt_connected = False
                 self.error(f"Connection error : {e}")
+
+                # Let's assume that an error during connection means we don't have the correct keys anymore
+                self.trash_connection_settings(e)
                 return False
 
     def _subscribe_on_topic(self, topic: str, callback: Callable = on_message_received):
@@ -255,6 +258,15 @@ class EdgiseMQTT(Thread, EdgiseBase):
         for topic, qos in resubscribe_results['topics']:
             if qos is None:
                 sys.exit("Server rejected resubscribe to topic: {}".format(topic))
+
+    def trash_connection_settings(self, exception):
+        # When we can't connect anymore,
+        error_message = str(exception)
+        if "AWS_ERROR_MQTT_UNEXPECTED_HANGUP" not in error_message:
+            self.error(f"Not trashing the config at this point")
+            return
+        os.remove(cfg.config_file_absolute_path)
+        os.system('sudo reboot')
 
 
 
