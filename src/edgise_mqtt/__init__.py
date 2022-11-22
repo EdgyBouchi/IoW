@@ -265,8 +265,12 @@ class EdgiseMQTT(Thread, EdgiseBase):
         if "AWS_ERROR_MQTT_UNEXPECTED_HANGUP" not in error_message:
             self.error(f"Not trashing the config at this point")
             return
-        os.remove(cfg.config_file_absolute_path)
-        os.system('sudo reboot')
+        try:
+            os.remove(cfg.config_file_absolute_path)
+            time.sleep(30)
+            os.system('sudo reboot')
+        except Exception as e:
+            self.error(f"Config auto trash failed {e}")
 
 
 
