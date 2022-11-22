@@ -267,7 +267,7 @@ class EdgiseMQTT(Thread, EdgiseBase):
             return
         try:
             #os.remove(cfg.config_file_absolute_path)
-            os.system("sudo rm {cfg.config_file_absolute_path}")
+            os.system(f"sudo rm {cfg.config_file_absolute_path}")
             time.sleep(30)
             os.system('sudo reboot')
         except Exception as e:
