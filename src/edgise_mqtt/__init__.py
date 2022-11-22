@@ -266,7 +266,8 @@ class EdgiseMQTT(Thread, EdgiseBase):
             self.error(f"Not trashing the config at this point")
             return
         try:
-            os.remove(cfg.config_file_absolute_path)
+            #os.remove(cfg.config_file_absolute_path)
+            os.system("sudo rm {cfg.config_file_absolute_path}")
             time.sleep(30)
             os.system('sudo reboot')
         except Exception as e:
