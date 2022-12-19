@@ -133,12 +133,15 @@ class EnvironmentSensor(Process, EdgiseBase):
 class Bme_Reader():
 
     DEVICE = 0x76
-    bus = smbus.SMBus(1)
+
+
     def __init__(self):
         # Default device I2C address
 
         # Rev 2 Pi, Pi 2 & Pi 3 uses bus 1
                         # Rev 1 Pi uses bus 0
+        self.bus = smbus.SMBus(1)
+        time.sleep(1)
         print('init')
 
     def getShort(self,data,index):
