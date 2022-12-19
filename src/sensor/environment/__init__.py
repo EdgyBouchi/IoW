@@ -168,6 +168,7 @@ class Bme_Reader():
         return (chip_id, chip_version)
 
     def readBME280All(self,addr=DEVICE):
+        time.sleep(1)
         # Register Addresses
         REG_DATA = 0xF7
         REG_CONTROL = 0xF4
@@ -272,7 +273,7 @@ class Bme_Reader():
         #(chip_id, chip_version) = self.readBME280ID()
         #print "Chip ID     :", chip_id
         #print "Version     :", chip_version
-
+        
         temperature,pressure,humidity = self.readBME280All()
         return temperature,pressure,humidity
         #print "Temperature : ", temperature, "C"
