@@ -10,7 +10,7 @@ git pull
 
 sleep 60
 
-./enlargeSwap.sh
+bash ./enlargeSwap.sh
 
 FILE=./forceReboot1
 if [ ! -f "$FILE" ]; then
