@@ -19,5 +19,5 @@ if __name__ == "__main__":
     # json with wifi data already exists
     print("wifi config json found")
     print("starting main script")
-    main_script = subprocess.Popen("echo {} | sudo python3 {}".format("ucllstudent", main_script_path), shell=True)
+    main_script = subprocess.Popen("sudo python3 {}".format(main_script_path), shell=True)
 
