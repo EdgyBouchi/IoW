@@ -60,8 +60,9 @@ class ACSensor(Process, EdgiseBase):
         return self.RMS_voltage * RMS_current
 
     def start_washcycle(self, raw_val, threshold):
-        if raw_val > threshold:
+        if raw_val >= threshold:
             self._washcycle_q.put_nowait(True)
+            return
         elif raw_val < threshold:
             try:
                 self._washcycle_q.get_nowait()
