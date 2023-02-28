@@ -10,6 +10,8 @@ git pull
 
 sleep 60
 
+bash ./enlargeSwap.sh
+
 FILE=./forceReboot1
 if [ ! -f "$FILE" ]; then
   touch $FILE
