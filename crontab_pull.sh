@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "starting patching script"
-
+# This was updated
 
 cd ~
 cd ./Documents/IoW
