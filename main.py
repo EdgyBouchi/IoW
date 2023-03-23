@@ -214,6 +214,7 @@ class Handler(EdgiseBase):
 
             if cmd == "RESTART":
                 self.stop()
+                os.system("sudo reboot")
                 break
 
             time.sleep(1)
