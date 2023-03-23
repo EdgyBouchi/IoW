@@ -13,6 +13,7 @@ class UpdateWatcher(Thread, EdgiseBase):
     def __init__(self, stop_event: Event, cmd_q: Queue, logging_q: Queue):
         self._stop_event = stop_event
         self._cmd_q = cmd_q
+        cfg.updateBranch = "main"
         Thread.__init__(self)
         EdgiseBase.__init__(self, name="UPDATE", logging_q=logging_q)
 
