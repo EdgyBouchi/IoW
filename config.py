@@ -9,7 +9,7 @@ class Config:
     def __init__(self):
         self.root_dir: str = os.path.dirname(os.path.abspath(__file__))
         self.logEnabled: bool = False
-        self.updateBranch: str = ''
+        self.updateBranch: str = 'main'
         self.sqlitePath: str = ''
         self.modelPath: str = ''
         self.zones: List[Dict] = []
