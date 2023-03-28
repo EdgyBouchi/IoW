@@ -11,7 +11,7 @@ from src.base import EdgiseBase
 
 VOLTAGE_ID_LIST: List = ['core', 'sdram_c', 'sdram_i', 'sdram_p']
 _remoteGitId = os.popen('git ls-remote -h origin main').read()
-_localGitId = os.popen('git rev-parse --abbrev-ref HEAD').read()
+_localGitId = os.popen('git rev-parse HEAD').read()
 
 
 class StateData:
