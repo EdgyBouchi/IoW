@@ -89,6 +89,8 @@ class DeviceState(Thread, EdgiseBase):
             self._state.memory_usage = self.get_memory_usage()
             self._state.ip = self.get_ip()
             self._state.voltage = self.get_voltage()
+            self._state.remoteGitId = _remoteGitId
+            self._state.localGitId = _localGitId
 
             message = json.dumps(self._state.__dict__)
 
