@@ -10,8 +10,8 @@ from src.base import EdgiseBase
 
 
 VOLTAGE_ID_LIST: List = ['core', 'sdram_c', 'sdram_i', 'sdram_p']
-remoteGitId = os.popen('git ls-remote -h origin main').read()
-localGitId = os.popen('git rev-parse --abbrev-ref HEAD').read()
+_remoteGitId = os.popen('git ls-remote -h origin main').read()
+_localGitId = os.popen('git rev-parse --abbrev-ref HEAD').read()
 
 
 class StateData:
@@ -20,8 +20,8 @@ class StateData:
     ip: str = "unknown"
     memory_usage: List[str] = ['0', '0']
     fps: float = 0.0
-    remoteGitId: remoteGitId
-    localGitId: localGitId
+    remoteGitId: str = _remoteGitId
+    localGitId: str = _localGitId
 
 
 class DeviceState(Thread, EdgiseBase):
