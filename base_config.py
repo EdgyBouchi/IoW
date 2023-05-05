@@ -1,7 +1,7 @@
 
 CONFIG_FILE = "config.json"
 LOGGING_FILE = "logger.log"
-DRY_CONFIG_FILE = "dry_config.json"
+DRY_CONFIG_FILE = "dry_config_test.json"
 
 UPLOAD_FOLDER_PATH = "src/uploader/folder"
 
