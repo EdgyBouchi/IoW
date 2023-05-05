@@ -2,49 +2,6 @@
   "root_dir": "/home/pi/Documents/IoW",
   "logEnabled": true,
   "updateBranch": "",
-  "sqlitePath": "src/database/local.db",
-  "modelPath": "models/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite",
-  "zones": [
-    {
-      "area": {
-        "point1": {
-          "x": 0,
-          "y": 0
-        },
-        "point2": {
-          "x": 0.45,
-          "y": 1
-        }
-      },
-      "edgeZone": true
-    },
-    {
-      "area": {
-        "point1": {
-          "x": 0.45,
-          "y": 0
-        },
-        "point2": {
-          "x": 0.55,
-          "y": 1
-        }
-      },
-      "edgeZone": false
-    },
-    {
-      "area": {
-        "point1": {
-          "x": 0.55,
-          "y": 0
-        },
-        "point2": {
-          "x": 1,
-          "y": 1
-        }
-      },
-      "edgeZone": true
-    }
-  ],
   "deviceId": "4fc1a4f0-9d3e-4bce-91aa-77dddbae54df",
   "projectId": "5f621f722f3bba6a6ec555fe",
   "screenUpdateInterval": 0.3,
@@ -87,5 +44,5 @@
   "cronosGetLocationUrl": "http://telly.cronoscentral.be/api/getlocation",
   "cronosUsername": "veldkant_35_a",
   "cronosPassword": "KZRxodRLxM9o",
-  "acThreshold": 40
+  "acThreshold": 100
 }
