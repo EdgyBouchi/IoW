@@ -54,7 +54,7 @@ class Config:
         self.cronosUsername: str = ''
         self.cronosPassword: str = ''
 
-        self.acThreshold: float = 20
+        self.acThreshold: float = 100
 
         # fetch full dry config
         self.load_config_from_file(self.dry_config_file_absolute_path)
