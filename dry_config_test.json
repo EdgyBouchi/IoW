@@ -1,16 +1,63 @@
 {
   "root_dir": "/home/pi/Documents/IoW",
   "logEnabled": true,
-  "updateBranch": "main",
+  "updateBranch": "",
+  "sqlitePath": "src/database/local.db",
+  "modelPath": "models/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite",
+  "zones": [
+    {
+      "area": {
+        "point1": {
+          "x": 0,
+          "y": 0
+        },
+        "point2": {
+          "x": 0.45,
+          "y": 1
+        }
+      },
+      "edgeZone": true
+    },
+    {
+      "area": {
+        "point1": {
+          "x": 0.45,
+          "y": 0
+        },
+        "point2": {
+          "x": 0.55,
+          "y": 1
+        }
+      },
+      "edgeZone": false
+    },
+    {
+      "area": {
+        "point1": {
+          "x": 0.55,
+          "y": 0
+        },
+        "point2": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "edgeZone": true
+    }
+  ],
   "deviceId": "4fc1a4f0-9d3e-4bce-91aa-77dddbae54df",
   "projectId": "5f621f722f3bba6a6ec555fe",
+  "screenUpdateInterval": 0.3,
+  "eventSyncInterval": 0.5,
+  "stateSyncInterval": 600,
   "mqtt_endpoint": "a15j8azot9bvme-ats.iot.eu-west-1.amazonaws.com",
   "mqtt_crt_path": "src/platform_sync/security/certificate.pem.crt",
   "mqtt_key_path": "src/platform_sync/security/private.pem.key",
   "mqtt_root_pem_path": "src/platform_sync/security/AmazonRootCA1.pem",
-  "config_file_path": "dry_config_test.json",
+  "config_file_path": "config.json",
   "logging_file_path": "logger.log",
   "dry_config_file_path": "dry_config.json",
+  "upload_folder_path": "src/uploader/folder",
   "registration_url": "https://platform-test.edgise.com/api/registration",
   "logging_levels": [
     "ERR",
@@ -20,19 +67,25 @@
   "logging_error": 0,
   "logging_info": 1,
   "logging_debug": 2,
-  "screenLoggingRejectionList": [],
-  "main_filename": "main.py",
-  "main_file_path": "/home/pi/Documents/IoW/main.py",
-  "MQTTLoggingRejectionList": ["MQTT"],
   "MQTTLoggingLevel": 1,
   "screenLoggingLevel": 3,
+  "screenLoggingRejectionList": [],
+  "MQTTLoggingRejectionList": [
+    "MQTT"
+  ],
   "MQTTLogRateLimiter": 5,
   "screenLogRateLimiter": 20,
-  "screenUpdateInterval": 0.3,
-  "eventSyncInterval": 0.5,
-  "stateSyncInterval": 600,
-  "uploaderInterval": 2,
-  "topicPrefix": "/",
+  "topicPrefix": "/test/",
   "platformApiUrl": "https://platform-test.edgise.com/api/",
-  "acThreshold": 100
+  "uploaderInterval": 2,
+  "main_filename": "main.py",
+  "main_file_path": "/home/pi/Documents/IoW/main.py",
+  "cronosLoginUrl": "http://telly.cronoscentral.be/api/login",
+  "cronosIncreaseUrl": "http://telly.cronoscentral.be/api/increase",
+  "cronosDecreaseUrl": "http://telly.cronoscentral.be/api/decrease",
+  "cronosGetStatsUrl": "http://telly.cronoscentral.be/api/currentStats",
+  "cronosGetLocationUrl": "http://telly.cronoscentral.be/api/getlocation",
+  "cronosUsername": "veldkant_35_a",
+  "cronosPassword": "KZRxodRLxM9o",
+  "acThreshold": 40
 }
