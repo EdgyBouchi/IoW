@@ -44,5 +44,5 @@
   "cronosGetLocationUrl": "http://telly.cronoscentral.be/api/getlocation",
   "cronosUsername": "veldkant_35_a",
   "cronosPassword": "KZRxodRLxM9o",
-  "acThreshold": 100
+  "acThreshold": 120
 }
