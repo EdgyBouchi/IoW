@@ -94,13 +94,14 @@ class Handler(EdgiseBase):
         # Queues for AC sensor
         self._washcycle_q = Queue()
 
+        ac_threshold = cfg.get_ac_threshold
         # connect AC sensor to analog port A0
         AC_sensor_config = {
             'name': "Electricity sensor",
             'pin': 0,
             'type': "INPUT",
             'unit': "mA",
-            'threshold': cfg.get_ac_threshold(),
+            'threshold': ac_threshold,
             'i2cAddress': 0x08
         }
 

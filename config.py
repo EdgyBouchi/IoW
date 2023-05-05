@@ -60,7 +60,7 @@ class Config:
         self.load_config_from_file(self.dry_config_file_absolute_path)
 
         # load from dedicated device config what is possible
-        self.load_config_from_file(self.config_file_absolute_path)
+        #self.load_config_from_file(self.config_file_absolute_path)
 
     @property
     def upload_folder_absolute_path(self) -> str:
