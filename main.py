@@ -100,7 +100,7 @@ class Handler(EdgiseBase):
             'pin': 0,
             'type': "INPUT",
             'unit': "mA",
-            'threshold': cfg.get_ac_threshold,
+            'threshold': cfg.get_ac_threshold(),
             'i2cAddress': 0x08
         }
 
