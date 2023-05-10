@@ -78,6 +78,7 @@ class ACSensor(Process, EdgiseBase):
 
             #self.i2c_lock.acquire()
             #try:
+
             raw_val = self.read_sensor()
             #finally:
                 #self.i2c_lock.release()
@@ -101,4 +102,4 @@ class ACSensor(Process, EdgiseBase):
                 }}
                 measurement = {'data': data}
                 self._output_q.put_nowait({'event': json.dumps(measurement)})
-            time.sleep(3)
+            time.sleep(1)
