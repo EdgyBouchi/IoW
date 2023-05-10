@@ -19,7 +19,5 @@
     "stateSyncInterval": 600,
     "uploaderInterval": 2,
     "topicPrefix": "/",
-    "platformApiUrl": "https://platform-test.edgise.com/api/",
-    "modelPath": "models/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite", 
     "acThreshold": 200
 }
