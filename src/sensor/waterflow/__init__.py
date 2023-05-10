@@ -30,8 +30,8 @@ class WaterflowSensor(Process, EdgiseBase):
 
         # self.pulse_count_q = Queue()
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #GPIO.setmode(GPIO.BCM)
+        #GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #        GPIO.add_event_detect(self._config_dict['Pin'], GPIO.FALLING,
 #                               callback=lambda x: count_sensor_pulse((self.start_counter, self.pulse_count)))
 
@@ -83,4 +83,4 @@ class WaterflowSensor(Process, EdgiseBase):
             measurement = {'data': data}
             if not self._washcycle_q.empty() and raw_val > 0:
                 self._output_q.put_nowait({'event': json.dumps(measurement)})
-            time.sleep(60)
+            time.sleep(10)
