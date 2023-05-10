@@ -76,11 +76,11 @@ class ACSensor(Process, EdgiseBase):
 
         while not self._stop_event.is_set():
 
-            self.i2c_lock.acquire()
-            try:
-                raw_val = self.read_sensor()
-            finally:
-                self.i2c_lock.release()
+            #self.i2c_lock.acquire()
+            #try:
+            raw_val = self.read_sensor()
+            #finally:
+                #self.i2c_lock.release()
 
             self.info("threshold: {}".format(self._threshold))
             self.start_washcycle(raw_val, self._threshold)
