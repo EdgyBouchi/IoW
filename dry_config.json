@@ -1,4 +1,6 @@
 {
     "updateBranch": "main",
-    "acThreshold": 200
+    "acThreshold": 200,
+    "MQTTLogRateLimiter": 5,
+    "screenLogRateLimiter": 20
 }
