@@ -22,7 +22,7 @@ class StateData:
     fps: float = 0.0
     remoteGitId: str = _remoteGitId
     localGitId: str = _localGitId
-    ACThreshold: int = cfg.get_ac_threshold()
+    ACThreshold: int = 0
 
 
 class DeviceState(Thread, EdgiseBase):
