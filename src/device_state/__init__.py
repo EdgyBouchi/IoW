@@ -22,6 +22,7 @@ class StateData:
     fps: float = 0.0
     remoteGitId: str = _remoteGitId
     localGitId: str = _localGitId
+    ACThreshold: int = cfg.get_ac_threshold()
 
 
 class DeviceState(Thread, EdgiseBase):
@@ -91,6 +92,7 @@ class DeviceState(Thread, EdgiseBase):
             self._state.voltage = self.get_voltage()
             self._state.remoteGitId = _remoteGitId
             self._state.localGitId = _localGitId
+            self._state.ACThreshold = cfg.get_ac_threshold()
 
             message = json.dumps(self._state.__dict__)
 
