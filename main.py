@@ -205,6 +205,7 @@ class Handler(EdgiseBase):
             # self._input_ac_q.put_nowait(measurement)
             try:
                 cmd = self._cmd_q_main_process.get_nowait()
+                # check for washing cycle
             except queue.Empty:
                 pass
             except Exception as e:
@@ -215,7 +216,8 @@ class Handler(EdgiseBase):
 
             if cmd == "RESTART":
                 self.stop()
-                os.system("sudo reboot")
+                #os.system("sudo reboot")
+                os.execv(__file__, sys.argv)
                 break
 
             time.sleep(1)

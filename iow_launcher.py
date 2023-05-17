@@ -1,6 +1,11 @@
 import os.path
 import subprocess
 
+def check_wifi(host):
+    command = ['ping', '-c', '1', host]
+    return subprocess.call(command) == 0
+
+
 if __name__ == "__main__":
     print(os.getcwd())
     os.chdir("/home/pi/Documents/IoW")
@@ -18,6 +23,7 @@ if __name__ == "__main__":
 
     # json with wifi data already exists
     print("wifi config json found")
+
     print("starting main script")
     main_script = subprocess.Popen("sudo python3 {}".format(main_script_path), shell=True)
 
