@@ -92,7 +92,7 @@ class DeviceState(Thread, EdgiseBase):
             self._state.voltage = self.get_voltage()
             self._state.remoteGitId = _remoteGitId
             self._state.localGitId = _localGitId
-            self._state.ACThreshold = cfg.get_ac_threshold()
+            #self._state.ACThreshold = cfg.get_ac_threshold()
 
             message = json.dumps(self._state.__dict__)
 
