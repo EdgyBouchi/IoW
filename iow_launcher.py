@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # json with wifi data already exists
     print("wifi config json found")
     with open(json_path,'r') as user_register_file:
-        json_dict = json.load(user_register_file.read())
+        json_dict = json.load(user_register_file)
 
     # use user_registration.json to connect to network ?
     ssid = json_dict["ssid"]
