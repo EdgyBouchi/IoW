@@ -47,13 +47,13 @@ if __name__ == "__main__":
     ssid = json_dict["ssid"]
     password = json_dict["password"]
 
-    res = subprocess.Popen(f'sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE,
+    res = subprocess.Popen('sudo nmcli dev wifi connect {ssid} password {password}', stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE, shell=True)
 
     if res.wait() != 0:
         output, error = res.communicate()
         print(error)
-        print("NMCLI Con not successfully activated")
+        print("NMCLI Con not successfully activated.\n")
     else:
         # check if the wifi connection is up and the platform reachable
         print("NMCLI Con successfully actived.\n")
