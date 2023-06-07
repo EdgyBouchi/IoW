@@ -12,7 +12,7 @@
 
 #bash ./enlargeSwap.sh
 
-#tmux send-keys -t iow C-c
-#sleep 5
-#tmux send-keys -t iow "sudo python3 Documents/IoW/iow_launcher.py" Enter
+tmux send-keys -t iow C-c
+sleep 5
+tmux send-keys -t iow "sudo python3 Documents/IoW/iow_launcher.py" Enter
 
