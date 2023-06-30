@@ -109,7 +109,7 @@ class ACSensor(Process, EdgiseBase):
                 self._washcycle_counter -= 1
 
 
-            if self._washycyle_counter > self._max_hysteresis_value:
+            if self._washcycle_counter > self._max_hysteresis_value:
                 self._washcycle_counter = self._max_hysteresis_value
             if self._washcycle_counter < 0:
                 self._washcycle_counter = 0
