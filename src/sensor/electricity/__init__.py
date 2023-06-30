@@ -1,8 +1,6 @@
 import time
-import json
 
 from math import sqrt
-from typing import List
 from multiprocessing import Process, Event, Queue, Lock
 from src.base import EdgiseBase
 from grove.adc import ADC
@@ -26,6 +24,18 @@ class ACSensor(Process, EdgiseBase):
         self._threshold = self._config_dict['threshold']
         self.adc = ADC(address=self._config_dict['i2cAddress'])
         self.i2c_lock = resource_lock
+
+        # hyteresis
+        # these will be consecutive measurements above the threshold
+        # needs to be configurable
+        self._max_hysteresis_value = 4
+        # temporar
+        self._washcycle_threshold = 100
+        self._washcycle_start_time = None
+        # time in seconds in which start of a washcycle cannot be interrupted
+        self._washcycle_max_elapsed_time = 600
+
+        self._washcycle_counter = 0
 
         Process.__init__(self)
         EdgiseBase.__init__(self, name=self._name, logging_q=logging_q)
@@ -59,33 +69,52 @@ class ACSensor(Process, EdgiseBase):
     def avg_power_consumption(self, RMS_current):
         return self.RMS_voltage * RMS_current
 
-    def start_washcycle(self, raw_val, threshold):
-        if raw_val >= threshold:
-            self._washcycle_q.put_nowait(True)
-            return
-        elif raw_val < threshold:
-            try:
-                self._washcycle_q.get_nowait()
-            except queue.Empty:
-                pass
+    def detect_washcycle(self):
+        if self._washcycle_counter == self._max_hysteresis_value:
+            #self._washcycle_counter = self._max_hysteresis_value
+            if self._washcycle_q.empty():
+                # there are enough consective measurements larger than the threshold, this indicated the start of a washcycle
+                self._washcycle_q.put_nowait(True)
+                self._washcycle_start_time = time.time()
+                return
+            self.info("there is still a washcycle running.")
+
+        if self._washcycle_counter == 0:
+           # self._washcycle_counter = 0
+            if not self._washcycle_q.empty():
+                elapsed_time = self._washcycle_start_time - time.time()
+                if elapsed_time > self._washcycle_max_elapsed_time:
+                    self.info("Condition to stop washcycle is met.")
+                    self.info("Washcycle counter is: {}".format(self._washcycle_counter))
+                    self.info("Elapsed time is: {}".format(elapsed_time))
+                    try:
+                        # stop washcycle
+                        self._washcycle_q.get_nowait()
+                        self._washcycle_start_time = None
+                    except queue.Empty:
+                        self.info("Could not consume washcycle queue.")
+                        pass
+                self.info("washcycle timer has not been exceeded yet.")
+                self.info("Washcycle counter is: {}".format(self._washcycle_counter))
+            self.info("No washcycle has been detected.")
 
     def run(self) -> None:
         self.info("Starting AC sensor")
         print(self._config_dict['name'])
-        # threshold = 4 # not representable value
-
         while not self._stop_event.is_set():
-
-            #self.i2c_lock.acquire()
-            #try:
-
             raw_val = self.read_sensor()
-            #finally:
-                #self.i2c_lock.release()
+            self.info("measured raw value: {}".format(raw_val))
+            # increment threshold counter
+            if raw_val >= self._washcycle_threshold:
+                self._washcycle_counter += 1
+            if raw_val < self._washcycle_threshold:
+                self._washcycle_counter -= 1
+            self.info("washcycle counter is: {}".format(self._washcycle_counter))
+            self.detect_washcycle()
 
-            self.info("threshold: {}".format(self._threshold))
-            self.start_washcycle(raw_val, self._threshold)
             if not self._washcycle_q.empty():
+                self.info("a washcycle is running")
+                # here we are in a washcycle
                 self.info("Raw Value: {}".format(raw_val))
                 amplitude_current = self.amplitude_current(raw_val)
                 self.info("A I Value: {}".format(amplitude_current))
@@ -102,4 +131,5 @@ class ACSensor(Process, EdgiseBase):
                 }}
                 measurement = {'data': data}
                 self._output_q.put_nowait({'event': json.dumps(measurement)})
+
             time.sleep(1)
