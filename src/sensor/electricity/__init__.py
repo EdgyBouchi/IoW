@@ -71,7 +71,6 @@ class ACSensor(Process, EdgiseBase):
 
     def detect_washcycle(self):
         if self._washcycle_counter == self._max_hysteresis_value:
-            #self._washcycle_counter = self._max_hysteresis_value
             if self._washcycle_q.empty():
                 # there are enough consective measurements larger than the threshold, this indicated the start of a washcycle
                 self._washcycle_q.put_nowait(True)
@@ -80,7 +79,6 @@ class ACSensor(Process, EdgiseBase):
             self.info("there is still a washcycle running.")
 
         if self._washcycle_counter == 0:
-           # self._washcycle_counter = 0
             if not self._washcycle_q.empty():
                 elapsed_time = self._washcycle_start_time - time.time()
                 if elapsed_time > self._washcycle_max_elapsed_time:
@@ -109,6 +107,13 @@ class ACSensor(Process, EdgiseBase):
                 self._washcycle_counter += 1
             if raw_val < self._washcycle_threshold:
                 self._washcycle_counter -= 1
+
+
+            if self._washycyle_counter > self._max_hysteresis_value:
+                self._washcycle_counter = self._max_hysteresis_value
+            if self._washcycle_counter < 0:
+                self._washcycle_counter = 0
+
             self.info("washcycle counter is: {}".format(self._washcycle_counter))
             self.detect_washcycle()
 
