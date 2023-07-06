@@ -30,7 +30,7 @@ class ACSensor(Process, EdgiseBase):
         # needs to be configurable
         self._max_hysteresis_value = 4
         # temporar
-        self._washcycle_threshold = 100
+        self._washcycle_threshold = cfg.acThreshold
         self._washcycle_start_time = None
         # time in seconds in which start of a washcycle cannot be interrupted
         self._washcycle_max_elapsed_time = 600
