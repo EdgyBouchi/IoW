@@ -80,7 +80,7 @@ class ACSensor(Process, EdgiseBase):
 
         if self._washcycle_counter == 0:
             if not self._washcycle_q.empty():
-                elapsed_time = self._washcycle_start_time - time.time()
+                elapsed_time = time.time() - self._washcycle_start_time
                 if elapsed_time > self._washcycle_max_elapsed_time:
                     self.info("Condition to stop washcycle is met.")
                     self.info("Washcycle counter is: {}".format(self._washcycle_counter))
