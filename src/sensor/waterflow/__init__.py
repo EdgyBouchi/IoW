@@ -31,10 +31,10 @@ class WaterflowSensor(Process, EdgiseBase):
 
         # self.pulse_count_q = Queue()
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(self._config_dict['Pin'], GPIO.FALLING,
-                               callback=lambda x: count_sensor_pulse((self.start_counter, self.pulse_count)))
+        #GPIO.setmode(GPIO.BCM)
+        #GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #GPIO.add_event_detect(self._config_dict['Pin'], GPIO.FALLING,
+         #                      callback=lambda x: count_sensor_pulse((self.start_counter, self.pulse_count)))
 
         Process.__init__(self)
         EdgiseBase.__init__(self, name=self._name, logging_q=logging_q)
@@ -60,16 +60,16 @@ class WaterflowSensor(Process, EdgiseBase):
 
     def run(self) -> None:
         self.info("Starting Waterflow sensor")
-        #GPIO.setmode(GPIO.BCM)
-        #GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        #GPIO.add_event_detect(self._config_dict['Pin'], GPIO.RISING)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self._config_dict['Pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.add_event_detect(self._config_dict['Pin'], GPIO.RISING)
 
         while not self._stop_event.is_set():
-            self.start_counter = 1
-            time.sleep(1)
-            self.start_counter = 0
-            raw_val = self.pulse_count
-            #raw_val = self.read_sensor()
+        #    self.start_counter = 1
+         #   time.sleep(1)
+          #  self.start_counter = 0
+           # raw_val = self.pulse_count
+            raw_val = self.read_sensor()
             flow_s = (raw_val / 396)
             flow_min = (raw_val / 6.6)
             flow_h = (raw_val * 60) / 6.6

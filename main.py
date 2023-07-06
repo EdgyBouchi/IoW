@@ -125,7 +125,7 @@ class Handler(EdgiseBase):
             'port': 1,
             'address': 0x76,
             'type': "INPUT",
-            'unit': ("°C", "hPa", " % rH"),
+            'unit': ("°C", "hPa", " % rH")
         }
 
         self._environment_sensor = EnvironmentSensor(stop_event=self._stop_event,
@@ -169,7 +169,7 @@ class Handler(EdgiseBase):
         wf_sensor_config = {
             'name': 'Waterflow sensor',
             'Pin': 13, # [TODO] [JD] change to 16(?) when using grove socket and connecting yellow to yellow?
-            'Type': 'INPUT',
+            'Type': 'INPUT'
         }
 
         self._wf_sensor = WaterflowSensor(stop_event=self._stop_event,
