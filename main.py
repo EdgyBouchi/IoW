@@ -11,6 +11,7 @@ from src.sensor.electricity import ACSensor
 from src.sensor.environment import EnvironmentSensor
 from src.sensor.vibration import VibrationSensor
 from src.sensor.waterflow import WaterflowSensor
+from src.device_plane import DevicePlanceOnboarder
 
 from config import cfg
 import queue
@@ -81,6 +82,12 @@ class Handler(EdgiseBase):
                                                 logging_q=self._logging_q)
 
         self._services.append(self.uploader_process)
+
+
+        self.device_plane_onboarder = DevicePlanceOnboarder(stop_event=self._stop_event,
+                                                            logging_q=self._logging_q,
+                                                            cmd_q=self._cmd_q_update_watcher)
+        self._services.append(self.device_plane_onboarder)
 
         self.info('--------------------------- App initialization complete ---------------------------')
 
