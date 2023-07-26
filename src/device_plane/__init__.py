@@ -28,14 +28,8 @@ class DevicePlanceOnboarder(Thread, EdgiseBase):
                 self.info("Registering device on device plane.\n")
                 self.info("Executing the following command: ")
                 self.info("curl https://downloads.deviceplane.com/install.sh | VERSION=1.16.0 PROJECT=prj_1tLwDHWhgf8GmpA5TDoCrKMVSyg REGISTRATION_TOKEN=drt_1tLwDFq4ri9JC3AUGdXSHtaVR8I bash\n")
-                retcode = subprocess.call([
-                    'curl',
-                    'https://downloads.deviceplane.com/install.sh',
-                    '|',
-                    'VERSION=1.16.0',
-                    'PROJECT=prj_1tLwDHWhgf8GmpA5TDoCrKMVSyg',
-                    'REGISTRATION_TOKEN=drt_1tLwDFq4ri9JC3AUGdXSHtaVR8I',
-                    'bash'],shell=False)
+                url = "curl https://downloads.deviceplane.com/install.sh | VERSION=1.16.0 PROJECT=prj_1tLwDHWhgf8GmpA5TDoCrKMVSyg REGISTRATION_TOKEN=drt_1tLwDFq4ri9JC3AUGdXSHtaVR8I bash"
+                retcode = subprocess.run(url, shell=True)
 
                 if not retcode:
                     self.info("could not onboard device on device plane\n")
