@@ -35,6 +35,7 @@ class DevicePlanceOnboarder(Thread, EdgiseBase):
                     self.info("could not onboard device on device plane\n")
                 else:
                     self.info("device onboarded successfully\n")
+                    self.error("Device has been onboarded on Device Plane succesfully")
 
 
 
